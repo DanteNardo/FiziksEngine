@@ -3,37 +3,42 @@
 // Purpose: Runs the physics simulation and rendering.
 
 #include <SFML/Graphics.hpp>
+#include "FiziksEngine.h"
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(1024,768), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	sf::RenderWindow window(sf::VideoMode(1024, 768), "SFML works!");
+
+	// Initialize the engine
+	FiziksEngine* fiziks_engine = new FiziksEngine();
 
 	// Variables for projectile motion
-	sf::Vector2f position = sf::Vector2f(0,768);
-	sf::Vector2f velocity = sf::Vector2f(50,-50);
-	sf::Vector2f acceleration = sf::Vector2f(0,9.8f);
+	sf::Vector2f position = sf::Vector2f(0, 768);
+	sf::Vector2f velocity = sf::Vector2f(50, -50);
+	sf::Vector2f acceleration = sf::Vector2f(0, 9.8f);
 
-	while (window.isOpen())
-	{
+	// Main Application Loop
+	while (window.isOpen()) {
+
+		// Poll for events
 		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
+		while (window.pollEvent(event)) {
+			if (event.type == sf::Event::Closed) {
 				window.close();
+			}
 		}
 
-		// Update position, velocity, and acceleration
-		velocity += acceleration;
-		position += velocity;
-		shape.setPosition(position);
+		// Update entire physics engine
+		fiziks_engine->update();
 
 		// Rendering
 		window.clear();
-		window.draw(shape);
+		fiziks_engine->draw(&window);
 		window.display();
 	}
+
+	// Release dynamic memory
+	delete fiziks_engine;
 
 	return 0;
 }
