@@ -1,6 +1,6 @@
 // Dante Nardo
-// Last Modified: 1/21/2018
-// Purpose: Runs the physics simulation and rendering.
+// Last Modified: 2/1/2018
+// Purpose: Controls the physics engine and application.
 
 #include <SFML/Graphics.hpp>
 #include "FiziksEngine.h"
