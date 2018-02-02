@@ -11,11 +11,9 @@ int main()
 
 	// Initialize the engine
 	FiziksEngine* fiziks_engine = new FiziksEngine();
-
-	// Variables for projectile motion
-	sf::Vector2f position = sf::Vector2f(0, 768);
-	sf::Vector2f velocity = sf::Vector2f(50, -50);
-	sf::Vector2f acceleration = sf::Vector2f(0, 9.8f);
+	sf::CircleShape circle = sf::CircleShape(20);
+	circle.setFillColor(sf::Color::Green);
+	circle.setPosition(512, 384);
 
 	// Main Application Loop
 	while (window.isOpen()) {
@@ -33,6 +31,7 @@ int main()
 
 		// Rendering
 		window.clear();
+		//window.draw(circle);
 		fiziks_engine->draw(&window);
 		window.display();
 	}

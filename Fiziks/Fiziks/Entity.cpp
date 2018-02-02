@@ -3,7 +3,7 @@
 // Default Constructor
 Entity::Entity()
 {
-	m_shape = &sf::CircleShape(100.f);
+	m_shape = new sf::CircleShape(100.f);
 	m_shape->setFillColor(sf::Color::Green);
 	m_kinematics = new Kinematics();
 }
