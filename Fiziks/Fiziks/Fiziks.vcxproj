@@ -123,11 +123,14 @@
     <ClCompile Include="FiziksApp.cpp" />
     <ClCompile Include="FiziksEngine.cpp" />
     <ClCompile Include="Kinematics.cpp" />
+    <ClCompile Include="KinematicsEntity.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h" />
     <ClInclude Include="FiziksEngine.h" />
     <ClInclude Include="Kinematics.h" />
+    <ClInclude Include="KinematicsEntity.h" />
+    <ClInclude Include="Math.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

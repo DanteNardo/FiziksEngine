@@ -1,17 +1,13 @@
 // Dante Nardo
-// Last Modified: 2/1/2018
+// Last Modified: 2/2/2018
 // Purpose: Runs the physics simulation.
 
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include "Entity.h"
+#include "KinematicsEntity.h"
 
 class FiziksEngine
 {
-private:
-	sf::Clock* m_timer;
-    std::vector<Entity*> m_entities;
-
 public:
     FiziksEngine();
     ~FiziksEngine();
@@ -19,5 +15,8 @@ public:
     void update();
     void draw(sf::RenderWindow* window);
 
-	void new_entity();
+private:
+	sf::Clock* m_timer;
+	sf::Clock* m_delta_timer;
+	std::vector<Entity*> m_entities;
 };
