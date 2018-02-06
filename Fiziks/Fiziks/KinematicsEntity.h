@@ -14,6 +14,7 @@ public:
 
 	void update(sf::Time* tt, sf::Time* dt);
 	void draw(sf::RenderWindow* window);
+	v2f get_pos();
 
 private:
 	sf::RectangleShape* m_shape;

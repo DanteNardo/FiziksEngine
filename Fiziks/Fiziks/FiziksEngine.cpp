@@ -6,15 +6,15 @@ FiziksEngine::FiziksEngine()
 	m_delta_timer = new sf::Clock();
 
 	// TODO: No longer hardcode this
-	KinematicsEntity* explicit_euler_entity = new KinematicsEntity(ExplicitEuler);
-	KinematicsEntity* implicit_euler_entity = new KinematicsEntity(SemiImplicitEuler);
-	KinematicsEntity* uniform_entity = new KinematicsEntity(UniformAcceleration);
-	KinematicsEntity* projectile_entity = new KinematicsEntity(ProjectileMotion);
+	KinematicsEntity* exp_euler_entity = new KinematicsEntity(ExplicitEuler);
+	KinematicsEntity* imp_euler_entity = new KinematicsEntity(SemiImplicitEuler);
+	KinematicsEntity* uni_entity = new KinematicsEntity(UniformAcceleration);
+	KinematicsEntity* proj_entity = new KinematicsEntity(ProjectileMotion);
 
-	m_entities.push_back(explicit_euler_entity);
-	m_entities.push_back(implicit_euler_entity);
-	m_entities.push_back(uniform_entity);
-	m_entities.push_back(projectile_entity);
+	m_entities.push_back(exp_euler_entity);
+	m_entities.push_back(imp_euler_entity);
+	m_entities.push_back(uni_entity);
+	m_entities.push_back(proj_entity);
 }
 
 FiziksEngine::~FiziksEngine()
@@ -46,4 +46,29 @@ void FiziksEngine::draw(sf::RenderWindow* window)
 	for (Entity* e : m_entities) {
 		e->draw(window);
 	}
+
+	// TODO: Remove this
+	// Displays all of the different Kinematics objects' positions
+	//std::ostringstream oss;
+	//sf::Text screen_text = sf::Text();
+	//screen_text.setFont(sf::Font::)
+	//sf::String text;
+
+	//oss << m_entities[0]->get_pos().x;
+	//text = sf::String((std::string)oss.str());
+
+	///*for (Entity* e : m_entities) {
+	//	text.insert(text.getSize() - 1, ")\n");
+	//	oss << e->get_pos().x;
+	//	text.insert(text.getSize() - 1, oss.str());
+	//	text.insert(text.getSize() - 1, ", ");
+	//	oss << e->get_pos().y;
+	//	text.insert(text.getSize() - 1, ")\n");
+	//}*/
+
+	//screen_text.setString(text);
+	//screen_text.setCharacterSize(30);
+	//screen_text.setFillColor(sf::Color::White);
+
+	//window->draw(screen_text);
 }

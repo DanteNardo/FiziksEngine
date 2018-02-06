@@ -15,6 +15,7 @@ public:
 
 	virtual void update(sf::Time* tt, sf::Time* dt) = 0;
 	virtual void draw(sf::RenderWindow* window) = 0;
+	virtual v2f get_pos() = 0;
 
 protected:
 	v2f world_to_screen(const v2f& position);

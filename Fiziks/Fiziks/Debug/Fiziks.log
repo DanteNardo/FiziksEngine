@@ -1,6 +1,4 @@
-﻿  Kinematics.cpp
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\kinematics.cpp(28): warning C4305: 'argument': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\kinematics.cpp(127): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\kinematics.cpp(130): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+﻿  KinematicsEntity.cpp
+c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\kinematicsentity.cpp(11): warning C4305: 'argument': truncation from 'double' to 'float'
   Fiziks.vcxproj -> C:\Users\dante\Source\Repos\FiziksEngine\Fiziks\Debug\Fiziks.exe
   Fiziks.vcxproj -> C:\Users\dante\Source\Repos\FiziksEngine\Fiziks\Debug\Fiziks.pdb (Full PDB)

@@ -3,6 +3,7 @@
 // Purpose: Runs the physics simulation.
 
 #include <SFML/Graphics.hpp>
+#include <sstream>
 #include <vector>
 #include "KinematicsEntity.h"
 

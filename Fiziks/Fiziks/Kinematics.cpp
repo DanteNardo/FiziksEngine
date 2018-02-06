@@ -3,38 +3,22 @@
 Kinematics::Kinematics()
 {
 	m_integration = SemiImplicitEuler;
-	m_i_pos = v2f(0, 0);
-	m_v_pos = v2f(0, 0);
-	m_pos = v2f(0, 0);
-	m_vel = v2f(0, 0);
-	m_acc = v2f(0, 0);
+	m_k_point = new k_point();
 }
 
-Kinematics::Kinematics(IntegrationType integration, v2f pos, v2f vel, v2f acc, int theta)
+Kinematics::Kinematics(IntegrationType integration, k_point* k_point)
 {
 	m_integration = integration;
-	m_i_pos = pos;
-	m_v_pos = vel;
-	m_pos = pos;
-	m_vel = vel;
-	m_acc = acc;
-	m_theta = theta;
-}
+	m_k_point = k_point;
 
-Kinematics::Kinematics(v2f pos, v2f vel, int theta)
-{
-	m_integration = ProjectileMotion;
-	m_i_pos = pos;
-	m_v_pos = vel;
-	m_pos = pos;
-	m_vel = vel;
-	m_acc = v2f(0, GRAVITY);
-	m_theta = theta;
+	// Apply angle to initial velocity
+	m_k_point->m_vel.x *= (float)(cos(m_k_point->m_theta * PI / 180));
+	m_k_point->m_vel.y *= (float)(sin(m_k_point->m_theta * PI / 180));
 }
 
 Kinematics::~Kinematics()
 {
-
+	delete m_k_point;
 }
 
 void Kinematics::update(sf::Time* tt, sf::Time* dt)
@@ -59,9 +43,9 @@ void Kinematics::update(sf::Time* tt, sf::Time* dt)
 	}
 }
 
-v2f Kinematics::get_pos()
+k_point* Kinematics::get_k_point()
 {
-	return m_pos;
+	return m_k_point;
 }
 
 /*
@@ -73,8 +57,8 @@ energy over time and a small time-step is necessary for accuracy.
 void Kinematics::explicit_euler_integration(const float dt)
 {
 	// Update position, then velocity
-	m_pos += m_vel * dt;
-	m_vel += m_acc * dt;
+	m_k_point->m_pos += m_k_point->m_vel * dt;
+	m_k_point->m_vel += m_k_point->m_acc * dt;
 }
 
 /*
@@ -92,8 +76,8 @@ generates a better result.
 void Kinematics::semi_implicit_euler_integration(const float dt)
 {
 	// Update velocity, then position
-	m_vel += m_acc * dt;
-	m_pos += m_vel * dt;
+	m_k_point->m_vel += m_k_point->m_acc * dt;
+	m_k_point->m_pos += m_k_point->m_vel * dt;
 }
 
 /*
@@ -114,7 +98,9 @@ Drawbacks: Can only be used when the acceleration is not changing (0 jerk).
 void Kinematics::uniform_acceleration(const float tt)
 {
 	// s = (initial p) + (v initial times t) + (half a times t squared)
-	m_pos = (m_i_pos) + (m_vel * tt) + (0.5f * m_acc * pow(tt, 2));
+	m_k_point->m_pos = 	(m_k_point->m_i_pos) + 
+						(m_k_point->m_vel * tt) + 
+						(0.5f * m_k_point->m_acc * pow(tt, 2));
 }
 
 /*
@@ -127,11 +113,9 @@ and it can be more expensive in processing power.
 void Kinematics::projectile_motion(const float tt)
 {
 	// x(t) = initial v times cos(theta)
-	float x = m_vel.x * cos(m_theta * PI / 180) * tt;
+	m_k_point->m_pos.x = m_k_point->m_i_vel.x * cos(m_k_point->m_theta * PI / 180) * tt;
 
-	// y(t) = ((initial v times sin(theta)) times t) minus (one half of GRAVITY times (time squared))
-	float y = (m_vel.y * sin(m_theta * PI / 180) * tt) + (0.5f * GRAVITY * (pow(tt, 2)));
-
-	m_pos.x = x;
-	m_pos.y = y;
+	// y(t) = 	(initial v times sin(theta) times t) minus 
+	// 			(one half of GRAVITY times (time squared))
+	m_k_point->m_pos.y = (m_k_point->m_i_vel.y * sin(m_k_point->m_theta * PI / 180) * tt) + (0.5f * GRAVITY * (pow(tt, 2)));
 }
