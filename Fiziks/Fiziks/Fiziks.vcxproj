@@ -119,18 +119,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="FiziksApp.cpp" />
-    <ClCompile Include="FiziksEngine.cpp" />
-    <ClCompile Include="Kinematics.cpp" />
-    <ClCompile Include="KinematicsEntity.cpp" />
+    <ClInclude Include="observer.h" />
+    <ClInclude Include="fiziks_engine.h" />
+    <ClInclude Include="kinematics.h" />
+    <ClInclude Include="k_entity.h" />
+    <ClInclude Include="math.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="FiziksEngine.h" />
-    <ClInclude Include="Kinematics.h" />
-    <ClInclude Include="KinematicsEntity.h" />
-    <ClInclude Include="Math.h" />
+    <ClCompile Include="observer.cpp" />
+    <ClCompile Include="fiziks_app.cpp" />
+    <ClCompile Include="fiziks_engine.cpp" />
+    <ClCompile Include="kinematics.cpp" />
+    <ClCompile Include="k_entity.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

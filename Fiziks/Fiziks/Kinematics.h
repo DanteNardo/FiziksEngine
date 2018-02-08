@@ -1,11 +1,11 @@
 // Dante Nardo
-// Last Modified: 2/5/2018
+// Last Modified: 2/6/2018
 // Purpose: Performs the calculations for all Kinematics equations.
 
 #pragma once
-#include "Math.h"
+#include "math.h"
 
-enum IntegrationType
+enum integration
 {
 	ExplicitEuler,
 	SemiImplicitEuler,
@@ -43,18 +43,18 @@ struct k_point
 	}
 };
 
-class Kinematics
+class kinematics
 {
 public:
-	Kinematics();
-	Kinematics(IntegrationType integration, k_point* k_point);
-	~Kinematics();
+	kinematics();
+	kinematics(integration integration, k_point* k_point);
+	~kinematics();
 
-	void update(sf::Time* tt, sf::Time* dt);
+	void update(const sf::Time* tt, const sf::Time* dt);
 	k_point* get_k_point();
 
 private:
-	IntegrationType m_integration;
+	integration m_integration;
 	k_point* m_k_point;
 
 	void explicit_euler_integration(const float dt);

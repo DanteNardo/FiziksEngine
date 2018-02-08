@@ -1,4 +1,16 @@
-﻿  KinematicsEntity.cpp
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\kinematicsentity.cpp(11): warning C4305: 'argument': truncation from 'double' to 'float'
-  Fiziks.vcxproj -> C:\Users\dante\Source\Repos\FiziksEngine\Fiziks\Debug\Fiziks.exe
-  Fiziks.vcxproj -> C:\Users\dante\Source\Repos\FiziksEngine\Fiziks\Debug\Fiziks.pdb (Full PDB)
+﻿  kinematics.cpp
+c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\kinematics.cpp(116): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\kinematics.cpp(120): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  fiziks_engine.cpp
+c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\fiziks_engine.cpp(22): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
+  Compiling...
+  k_entity.cpp
+c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\k_entity.cpp(11): warning C4305: 'argument': truncation from 'double' to 'float'
+  fiziks_app.cpp
+  Generating Code...
+fiziks_engine.obj : error LNK2019: unresolved external symbol "public: __thiscall entity::~entity(void)" (??1entity@@QAE@XZ) referenced in function "public: void * __thiscall entity::`scalar deleting destructor'(unsigned int)" (??_Gentity@@QAEPAXI@Z)
+k_entity.obj : error LNK2001: unresolved external symbol "public: __thiscall entity::~entity(void)" (??1entity@@QAE@XZ)
+k_entity.obj : error LNK2019: unresolved external symbol "public: __thiscall entity::entity(void)" (??0entity@@QAE@XZ) referenced in function "public: __thiscall k_entity::k_entity(enum integration)" (??0k_entity@@QAE@W4integration@@@Z)
+k_entity.obj : error LNK2019: unresolved external symbol "protected: class sf::Vector2<float> __thiscall entity::world_to_screen(class sf::Vector2<float> const &)" (?world_to_screen@entity@@IAE?AV?$Vector2@M@sf@@ABV23@@Z) referenced in function "public: virtual void __thiscall k_entity::update(class sf::Time *,class sf::Time *)" (?update@k_entity@@UAEXPAVTime@sf@@0@Z)
+C:\Users\dante\Source\Repos\FiziksEngine\Fiziks\Debug\Fiziks.exe : fatal error LNK1120: 3 unresolved externals

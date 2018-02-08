@@ -1,12 +1,12 @@
-#include "Kinematics.h"
+#include "kinematics.h"
 
-Kinematics::Kinematics()
+kinematics::kinematics()
 {
 	m_integration = SemiImplicitEuler;
 	m_k_point = new k_point();
 }
 
-Kinematics::Kinematics(IntegrationType integration, k_point* k_point)
+kinematics::kinematics(integration integration, k_point* k_point)
 {
 	m_integration = integration;
 	m_k_point = k_point;
@@ -16,12 +16,12 @@ Kinematics::Kinematics(IntegrationType integration, k_point* k_point)
 	m_k_point->m_vel.y *= (float)(sin(m_k_point->m_theta * PI / 180));
 }
 
-Kinematics::~Kinematics()
+kinematics::~kinematics()
 {
 	delete m_k_point;
 }
 
-void Kinematics::update(sf::Time* tt, sf::Time* dt)
+void kinematics::update(const sf::Time* tt, const sf::Time* dt)
 {
 	switch (m_integration)
 	{
@@ -43,7 +43,7 @@ void Kinematics::update(sf::Time* tt, sf::Time* dt)
 	}
 }
 
-k_point* Kinematics::get_k_point()
+k_point* kinematics::get_k_point()
 {
 	return m_k_point;
 }
@@ -54,7 +54,7 @@ Benefits: Fast calculation, relative accuracy with small time steps.
 Drawbacks: Damping and undulating acceleration can cause large gains in
 energy over time and a small time-step is necessary for accuracy.
 */
-void Kinematics::explicit_euler_integration(const float dt)
+void kinematics::explicit_euler_integration(const float dt)
 {
 	// Update position, then velocity
 	m_k_point->m_pos += m_k_point->m_vel * dt;
@@ -73,7 +73,7 @@ Benefits: Fast calculation, relative accuracy with small time steps.
 Drawbacks: Same order as explicit euler, but it is symplectic which
 generates a better result.
 */
-void Kinematics::semi_implicit_euler_integration(const float dt)
+void kinematics::semi_implicit_euler_integration(const float dt)
 {
 	// Update velocity, then position
 	m_k_point->m_vel += m_k_point->m_acc * dt;
@@ -85,7 +85,7 @@ Fourth Order Integration
 Benefits: Very, very accurate (error introduced in fourth derivative).
 Drawbacks: Expensive calculations and energy loss over time.
 */
-void Kinematics::runge_kutta_4_integration(const float dt)
+void kinematics::runge_kutta_4_integration(const float dt)
 {
 
 }
@@ -95,7 +95,7 @@ First Order Integration
 Benefits: Provides a highly accurate answer without time step error.
 Drawbacks: Can only be used when the acceleration is not changing (0 jerk).
 */
-void Kinematics::uniform_acceleration(const float tt)
+void kinematics::uniform_acceleration(const float tt)
 {
 	// s = (initial p) + (v initial times t) + (half a times t squared)
 	m_k_point->m_pos = 	(m_k_point->m_i_pos) + 
@@ -110,7 +110,7 @@ velocity and the angle at which it was fired.
 Drawbacks: Can only be used when the acceleration is not changing (0 jerk)
 and it can be more expensive in processing power.
 */
-void Kinematics::projectile_motion(const float tt)
+void kinematics::projectile_motion(const float tt)
 {
 	// x(t) = initial v times cos(theta)
 	m_k_point->m_pos.x = m_k_point->m_i_vel.x * cos(m_k_point->m_theta * PI / 180) * tt;
