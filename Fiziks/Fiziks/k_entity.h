@@ -1,16 +1,14 @@
 // Dante Nardo
-// Last Modified: 2/13/2018
+// Last Modified: 2/14/2018
 // Purpose: A kinematic entity that undergoes kinematics simulation.
 
 #ifndef K_ENTITY_H
 #define K_ENTITY_H
 
-#include "fiziks_engine.h"
 #include "kinematics.h"
-#include "observer.h"
+#include "fiziks_engine.h"
 
-class observer;
-class k_entity : public observer
+class k_entity : public Iobserver
 {
 public:
 	k_entity(fiziks_engine* fiziks, integration integration);

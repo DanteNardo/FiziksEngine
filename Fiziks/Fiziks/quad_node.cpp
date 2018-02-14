@@ -4,14 +4,14 @@ quad_node::quad_node()
 {
 	m_bounds = new bounds(v2f(0, 0), 640, 480);
     m_subdivisions = new std::vector<quad_node*>();
-    m_observers = new std::vector<observer*>();
+    m_observers = new std::vector<Iobserver*>();
 }
 
 quad_node::quad_node(bounds* bound)
 {
     m_bounds = bound;
     m_subdivisions = new std::vector<quad_node*>();
-    m_observers = new std::vector<observer*>();
+    m_observers = new std::vector<Iobserver*>();
 }
 
 quad_node::quad_node(bounds* bound, int depth)
@@ -19,7 +19,7 @@ quad_node::quad_node(bounds* bound, int depth)
     m_depth = depth;
     m_bounds = bound;
     m_subdivisions = new std::vector<quad_node*>();
-    m_observers = new std::vector<observer*>();
+    m_observers = new std::vector<Iobserver*>();
 }
 
 quad_node::~quad_node()
@@ -39,7 +39,7 @@ This function creates the entire quad tree.
 After adding all of the observers, the quad tree partitions itself and continues
 to subdivide until each quad_node has no more than MAX_OBSERVERS inside it.
 */
-void quad_node::add_observers(std::vector<observer*>* observers)
+void quad_node::add_observers(std::vector<Iobserver*>* observers)
 {
     for (auto o : *observers) {
         m_observers->push_back(o);
@@ -47,7 +47,7 @@ void quad_node::add_observers(std::vector<observer*>* observers)
     partition();
 }
 
-void quad_node::add_observer(observer* observe)
+void quad_node::add_observer(Iobserver* observe)
 {
     m_observers->push_back(observe);
 }
@@ -93,7 +93,7 @@ void quad_node::create_subdivisions()
     m_subdivisions->push_back(q4);
 }
 
-bool quad_node::add_to_subdivision(observer* observer_to_add)
+bool quad_node::add_to_subdivision(Iobserver* observer_to_add)
 {
     for (auto q : *m_subdivisions) {
         if (q->get_bounds()->contains(observer_to_add->get_bounds())) {

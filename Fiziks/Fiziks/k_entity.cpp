@@ -1,7 +1,7 @@
 #include "k_entity.h"
 
 k_entity::k_entity(fiziks_engine* fiziks, integration integration) :
-observer(fiziks)
+Iobserver(fiziks)
 {
 	m_shape = new sf::RectangleShape();
 	m_shape->setSize(v2f(25.0f, 25.0f));
@@ -15,6 +15,7 @@ observer(fiziks)
 
 k_entity::~k_entity()
 {
+	safe_delete(m_bounds);
 	safe_delete(m_shape);
 	safe_delete(m_kinematics);
 }

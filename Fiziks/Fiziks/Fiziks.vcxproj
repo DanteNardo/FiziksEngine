@@ -124,7 +124,6 @@
     <ClInclude Include="kinematics.h" />
     <ClInclude Include="k_entity.h" />
     <ClInclude Include="math.h" />
-    <ClInclude Include="observer.h" />
     <ClInclude Include="quad_node.h" />
   </ItemGroup>
   <ItemGroup>
@@ -133,7 +132,6 @@
     <ClCompile Include="fiziks_engine.cpp" />
     <ClCompile Include="kinematics.cpp" />
     <ClCompile Include="k_entity.cpp" />
-    <ClCompile Include="observer.cpp" />
     <ClCompile Include="quad_node.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

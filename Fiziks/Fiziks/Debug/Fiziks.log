@@ -1,4 +1,4 @@
-﻿  observer.cpp
+﻿  fiziks_app.cpp
   Generating Code...
   Compiling...
   quad_node.cpp
@@ -7,7 +7,6 @@ c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\quad_node.cpp(66): warnin
 c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\k_entity.cpp(12): warning C4305: 'argument': truncation from 'double' to 'float'
   fiziks_engine.cpp
 c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\fiziks_engine.cpp(18): warning C4018: '<': signed/unsigned mismatch
-  fiziks_app.cpp
   Generating Code...
   Fiziks.vcxproj -> C:\Users\dante\Source\Repos\FiziksEngine\Fiziks\Debug\Fiziks.exe
   Fiziks.vcxproj -> C:\Users\dante\Source\Repos\FiziksEngine\Fiziks\Debug\Fiziks.pdb (Full PDB)

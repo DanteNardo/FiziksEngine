@@ -1,5 +1,5 @@
 // Dante Nardo
-// Last Modified: 2/13/2018
+// Last Modified: 2/14/2018
 // Purpose: Runs the physics simulation.
 
 #ifndef FIZIKS_ENGINE_H
@@ -9,9 +9,13 @@
 #include <sstream>
 #include <vector>
 #include "bounds.h"
-#include "observer.h"
 
-class observer;
+/*
+Observer Design Pattern
+This is the subject in the observer design pattern. All classes that implement
+the Iobserver interface have a reference to this subject and are notified by
+the subject when the values change.
+*/
 class fiziks_engine
 {
 public:
@@ -21,16 +25,51 @@ public:
     void update();
     void draw(sf::RenderWindow* window);
 
-	void attach(observer* view);
+	void attach(class Iobserver* view);
+	void notify();
+
 	sf::Time get_time();
 	sf::Time get_delta_time();
 	v2f world_to_screen(const v2f& position);
 
 private:
+	std::vector<Iobserver*> m_views;
+
 	sf::Clock* m_timer;
 	sf::Clock* m_delta_timer;
 	sf::Time m_delta_time;
-	std::vector<observer*> m_views;
 };
+
+/*
+Observer Design Pattern
+This is the observer interface in the observer design pattern. All classes that
+implement this interface automatically update their values when the attached
+subject calls the "notify" function.
+*/
+class Iobserver
+{
+public:
+	Iobserver(fiziks_engine* engine) {
+		if (engine == NULL) {
+			m_engine = engine;
+		}
+		m_engine->attach(this);
+	}
+	~Iobserver() { }
+
+	virtual void update() = 0;
+	virtual void draw(sf::RenderWindow* window) = 0;
+	bounds* get_bounds() { return m_bounds; }
+
+protected:
+	bounds* m_bounds;
+	fiziks_engine* get_engine() { return m_engine; }
+
+private:
+	fiziks_engine* m_engine;
+};
+
+// Included after Iobserver to avoid building from an incomplete type
+#include "k_entity.h"
 
 #endif // !FIZIKS_ENGINE_H

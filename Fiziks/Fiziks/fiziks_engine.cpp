@@ -2,7 +2,7 @@
 
 fiziks_engine::fiziks_engine()
 {
-	m_views = std::vector<observer*>();
+	m_views = std::vector<Iobserver*>();
 	m_timer = new sf::Clock();
 	m_delta_timer = new sf::Clock();
 
@@ -40,9 +40,16 @@ void fiziks_engine::draw(sf::RenderWindow* window)
 	}
 }
 
-void fiziks_engine::attach(observer* view)
+void fiziks_engine::attach(Iobserver* view)
 {
 	m_views.push_back(view);
+}
+
+void fiziks_engine::notify()
+{
+	for (auto view : m_views) {
+		view->update();
+	}
 }
 
 sf::Time fiziks_engine::get_time()
