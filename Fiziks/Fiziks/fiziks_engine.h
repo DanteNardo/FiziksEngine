@@ -50,7 +50,7 @@ class Iobserver
 {
 public:
 	Iobserver(fiziks_engine* engine) {
-		if (engine == NULL) {
+		if (m_engine == NULL) {
 			m_engine = engine;
 		}
 		m_engine->attach(this);

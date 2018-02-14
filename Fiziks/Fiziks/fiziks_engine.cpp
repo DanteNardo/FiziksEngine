@@ -7,10 +7,10 @@ fiziks_engine::fiziks_engine()
 	m_delta_timer = new sf::Clock();
 
 	// TODO: No longer hardcode this
-	//k_entity* exp_euler_entity = new k_entity(this, ExplicitEuler);
-	//k_entity* imp_euler_entity = new k_entity(this, SemiImplicitEuler);
-	//k_entity* uni_entity = new k_entity(this, UniformAcceleration);
-	//k_entity* proj_entity = new k_entity(this, ProjectileMotion);
+	k_entity* exp_euler_entity = new k_entity(this, ExplicitEuler);
+	k_entity* imp_euler_entity = new k_entity(this, SemiImplicitEuler);
+	k_entity* uni_entity = new k_entity(this, UniformAcceleration);
+	k_entity* proj_entity = new k_entity(this, ProjectileMotion);
 }
 
 fiziks_engine::~fiziks_engine()

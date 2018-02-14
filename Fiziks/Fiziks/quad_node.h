@@ -19,7 +19,6 @@ public:
 	void set_final_depth(int final_depth);
 	void add_observers(std::vector<Iobserver*>* observers);
 	void add_observer(Iobserver* observe);
-	bounds* get_bounds();
 
 private:
 	int m_depth;
@@ -32,6 +31,7 @@ private:
 	void partition();
 	void create_subdivisions();
 	bool add_to_subdivision(Iobserver* observer_to_add);
+	bool not_leaf();
 };
 
 int quad_node::m_final_depth;
