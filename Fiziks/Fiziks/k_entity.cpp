@@ -1,6 +1,7 @@
 #include "k_entity.h"
 
-k_entity::k_entity(integration integration)
+k_entity::k_entity(fiziks_engine* fiziks, integration integration) :
+observer(fiziks)
 {
 	m_shape = new sf::RectangleShape();
 	m_shape->setSize(v2f(25.0f, 25.0f));
@@ -14,16 +15,16 @@ k_entity::k_entity(integration integration)
 
 k_entity::~k_entity()
 {
-	delete m_shape;
-	m_shape = nullptr;
-	delete m_kinematics;
-	m_kinematics = nullptr;
+	safe_delete(m_shape);
+	safe_delete(m_kinematics);
 }
 
-void k_entity::update(sf::Time* tt, sf::Time* dt)
+void k_entity::update()
 {
-	m_kinematics->update(tt, dt);
-	m_shape->setPosition(world_to_screen(m_kinematics->get_k_point()->m_pos));
+	m_kinematics->update(&get_engine()->get_delta_time(), 
+						 &get_engine()->get_time());
+	m_shape->setPosition(get_engine()->world_to_screen(
+						 m_kinematics->get_k_point()->m_pos));
 }
 
 void k_entity::draw(sf::RenderWindow* window)

@@ -18,7 +18,7 @@ kinematics::kinematics(integration integration, k_point* k_point)
 
 kinematics::~kinematics()
 {
-	delete m_k_point;
+	safe_delete(m_k_point);
 }
 
 void kinematics::update(const sf::Time* tt, const sf::Time* dt)

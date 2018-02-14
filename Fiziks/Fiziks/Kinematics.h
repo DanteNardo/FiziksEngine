@@ -1,8 +1,10 @@
 // Dante Nardo
-// Last Modified: 2/6/2018
+// Last Modified: 2/13/2018
 // Purpose: Performs the calculations for all Kinematics equations.
 
-#pragma once
+#ifndef KINEMATICS_H
+#define KINEMATICS_H
+
 #include "math.h"
 
 enum integration
@@ -63,3 +65,5 @@ private:
 	void uniform_acceleration(const float tt);
 	void projectile_motion(const float tt);
 };
+
+#endif // !KINEMATICS_H

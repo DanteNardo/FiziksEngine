@@ -27,13 +27,13 @@
     <ClInclude Include="math.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="observer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="quad_node.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="bounds.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="observer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -50,13 +50,13 @@
     <ClCompile Include="fiziks_app.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="observer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="quad_node.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="bounds.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="observer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -120,20 +120,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="bounds.h" />
-    <ClInclude Include="observer.h" />
     <ClInclude Include="fiziks_engine.h" />
     <ClInclude Include="kinematics.h" />
     <ClInclude Include="k_entity.h" />
     <ClInclude Include="math.h" />
+    <ClInclude Include="observer.h" />
     <ClInclude Include="quad_node.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bounds.cpp" />
-    <ClCompile Include="observer.cpp" />
     <ClCompile Include="fiziks_app.cpp" />
     <ClCompile Include="fiziks_engine.cpp" />
     <ClCompile Include="kinematics.cpp" />
     <ClCompile Include="k_entity.cpp" />
+    <ClCompile Include="observer.cpp" />
     <ClCompile Include="quad_node.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

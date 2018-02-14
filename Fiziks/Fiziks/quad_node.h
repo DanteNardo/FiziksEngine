@@ -2,30 +2,38 @@
 // Last Modified: 2/13/2018
 // Purpose: Implements spatial partitioning of a 2D screen.
 
-#pragma once
+#ifndef QUAD_NODE_H
+#define QUAD_NODE_H
+
 #include <vector>
-#include "observer.h"
+#include "fiziks_engine.h"
 
 class quad_node
 {
 public:
 	quad_node();
-	quad_node(int screen_width, int screen_height);
+	quad_node(bounds* bound);
+	quad_node(bounds* bound, int depth);
 	~quad_node();
 
-	int MAX_OBSERVERS = 3;
-
+	void set_final_depth(int final_depth);
 	void add_observers(std::vector<observer*>* observers);
+	void add_observer(observer* observe);
+	bounds* get_bounds();
 
 private:
-	int m_width;
-	int m_height;
+	int m_depth;
+	static int m_final_depth;
+	bounds* m_bounds;
 
 	std::vector<quad_node*>* m_subdivisions;
 	std::vector<observer*>* m_observers;
 
 	void partition();
 	void create_subdivisions();
-	void add_to_subdivision(observer* observer_to_add);
+	bool add_to_subdivision(observer* observer_to_add);
 };
 
+int quad_node::m_final_depth;
+
+#endif // !QUAD_NODE_H
