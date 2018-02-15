@@ -30,10 +30,10 @@
     <ClInclude Include="quad_node.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="bounds.h">
+    <ClInclude Include="collisions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="collisions.h">
+    <ClInclude Include="entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -53,10 +53,10 @@
     <ClCompile Include="quad_node.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bounds.cpp">
+    <ClCompile Include="collisions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="collisions.cpp">
+    <ClCompile Include="entity.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

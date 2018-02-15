@@ -2,14 +2,14 @@
 
 quad_node::quad_node()
 {
-	m_bounds = new aa_bounds(v2f(0, 0), 640, 480);
+	m_bounds = new bounds(v2f(0, 0), 640, 480);
     m_subdivisions = new std::vector<quad_node*>();
     m_observers = new std::vector<Iobserver*>();
 
     partition();
 }
 
-quad_node::quad_node(aa_bounds* bound)
+quad_node::quad_node(bounds* bound)
 {
     m_depth = 0;
     m_bounds = bound;
@@ -17,7 +17,7 @@ quad_node::quad_node(aa_bounds* bound)
     m_observers = new std::vector<Iobserver*>();
 }
 
-quad_node::quad_node(aa_bounds* bound, int depth)
+quad_node::quad_node(bounds* bound, int depth)
 {
     m_depth = depth;
     m_bounds = bound;
@@ -32,7 +32,7 @@ quad_node::~quad_node()
     safe_delete(m_observers);
 }
 
-aa_bounds* quad_node::get_bounds()
+bounds* quad_node::get_bounds()
 {
     return m_bounds;
 }

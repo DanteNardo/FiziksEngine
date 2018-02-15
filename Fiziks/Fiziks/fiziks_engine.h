@@ -5,10 +5,9 @@
 #ifndef FIZIKS_ENGINE_H
 #define FIZIKS_ENGINE_H
 
-#include <SFML/Graphics.hpp>
 #include <sstream>
 #include <vector>
-#include "bounds.h"
+#include "math.h"
 
 /*
 Observer Design Pattern
@@ -59,10 +58,8 @@ public:
 
 	virtual void update() = 0;
 	virtual void draw(sf::RenderWindow* window) = 0;
-	aa_bounds* get_bounds() { return m_bounds; }
 
 protected:
-	aa_bounds* m_bounds;
 	fiziks_engine* get_engine() { return m_engine; }
 
 private:

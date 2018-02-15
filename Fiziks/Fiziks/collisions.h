@@ -1,11 +1,11 @@
 // Author: Dante Nardo
-// Last Modified: 2/13/2018
+// Last Modified: 2/15/2018
 // Purpose: Performs collision checking operations based on collider types.
 
 #ifndef COLLISIONS_H
 #define COLLISIONS_H
 
-#include "bounds.h"
+#include "entity.h"
 
 class collisions
 {
@@ -13,8 +13,11 @@ public:
 	collisions();
 	~collisions();
 
-	template <typename T1, typename T2>
-	void check(const T1& a, const T2& b);
+	bool check(entity& a, entity& b);
+
+private:
+	bool OBB(entity& a, entity& b); // Oriented Bounding Box
+	bool SAT(entity& a, entity& b); // Satisfiability Problem
 };
 
 #endif // !COLLISIONS_H

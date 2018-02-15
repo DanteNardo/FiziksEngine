@@ -119,8 +119,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="bounds.h" />
     <ClInclude Include="collisions.h" />
+    <ClInclude Include="entity.h" />
     <ClInclude Include="fiziks_engine.h" />
     <ClInclude Include="kinematics.h" />
     <ClInclude Include="k_entity.h" />
@@ -128,8 +128,8 @@
     <ClInclude Include="quad_node.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="bounds.cpp" />
     <ClCompile Include="collisions.cpp" />
+    <ClCompile Include="entity.cpp" />
     <ClCompile Include="fiziks_app.cpp" />
     <ClCompile Include="fiziks_engine.cpp" />
     <ClCompile Include="kinematics.cpp" />

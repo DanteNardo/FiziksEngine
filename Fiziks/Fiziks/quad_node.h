@@ -12,11 +12,11 @@ class quad_node
 {
 public:
 	quad_node();
-	quad_node(aa_bounds* bound);
-	quad_node(aa_bounds* bound, int depth);
+	quad_node(bounds* bound);
+	quad_node(bounds* bound, int depth);
 	~quad_node();
 
-	aa_bounds* get_bounds();
+	bounds* get_bounds();
 	void set_final_depth(int final_depth);
 	void add_observers(std::vector<Iobserver*>* observers);
 	void add_observer(Iobserver* observe);
@@ -28,7 +28,7 @@ public:
 private:
 	int m_depth;
 	static int m_final_depth;
-	aa_bounds* m_bounds;
+	bounds* m_bounds;
 
 	std::vector<quad_node*>* m_subdivisions;
 	std::vector<Iobserver*>* m_observers;
