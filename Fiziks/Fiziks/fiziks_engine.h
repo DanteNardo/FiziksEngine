@@ -59,10 +59,10 @@ public:
 
 	virtual void update() = 0;
 	virtual void draw(sf::RenderWindow* window) = 0;
-	bounds* get_bounds() { return m_bounds; }
+	aa_bounds* get_bounds() { return m_bounds; }
 
 protected:
-	bounds* m_bounds;
+	aa_bounds* m_bounds;
 	fiziks_engine* get_engine() { return m_engine; }
 
 private:

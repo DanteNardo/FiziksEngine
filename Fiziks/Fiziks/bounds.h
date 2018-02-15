@@ -5,25 +5,31 @@
 #pragma once
 #include "math.h"
 
-class bounds
+class aa_bounds
 {
 public:
-	bounds();
-	bounds(v2f pos, int width, int height);
-	~bounds();
+	aa_bounds();
+	aa_bounds(v2f min, v2f max);
+	~aa_bounds();
 
-	bool contains(bounds* bound);
-	bounds top_left();
-	bounds top_right();
-	bounds bottom_left();
-	bounds bottom_right();
+	bool contains(aa_bounds* bound);
+	aa_bounds top_left();
+	aa_bounds top_right();
+	aa_bounds bottom_left();
+	aa_bounds bottom_right();
 
+	v2f get_min();
+	v2f get_max();
 	v2f get_pos();
-	int get_width();
-	int get_height();
+	float get_width();
+	float get_height();
 	
 private:
-	v2f m_pos;
-	int m_width;
-	int m_height;
+	v2f m_min;
+	v2f m_max;
+};
+
+class oo_bounds : aa_bounds
+{
+
 };

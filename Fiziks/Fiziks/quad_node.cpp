@@ -2,14 +2,14 @@
 
 quad_node::quad_node()
 {
-	m_bounds = new bounds(v2f(0, 0), 640, 480);
+	m_bounds = new aa_bounds(v2f(0, 0), 640, 480);
     m_subdivisions = new std::vector<quad_node*>();
     m_observers = new std::vector<Iobserver*>();
 
     partition();
 }
 
-quad_node::quad_node(bounds* bound)
+quad_node::quad_node(aa_bounds* bound)
 {
     m_depth = 0;
     m_bounds = bound;
@@ -17,7 +17,7 @@ quad_node::quad_node(bounds* bound)
     m_observers = new std::vector<Iobserver*>();
 }
 
-quad_node::quad_node(bounds* bound, int depth)
+quad_node::quad_node(aa_bounds* bound, int depth)
 {
     m_depth = depth;
     m_bounds = bound;
@@ -30,6 +30,11 @@ quad_node::~quad_node()
     safe_delete(m_bounds);
     safe_delete(m_subdivisions);
     safe_delete(m_observers);
+}
+
+aa_bounds* quad_node::get_bounds()
+{
+    return m_bounds;
 }
 
 void quad_node::set_final_depth(int final_depth)
@@ -117,6 +122,69 @@ bool quad_node::add_to_subdivision(Iobserver* observer_to_add)
     }
 
 	return false;
+}
+
+void check_collisions(std::vector<Iobserver*> A, std::vector<Iobserver*> B)
+{
+    // Iterate through two vectors that contain the collision objects
+    for (auto a : A) {
+        for (auto b : B) {
+            m_collisions->check(a, b);
+        }
+    }
+}
+
+void quad_node::check_subdivision_collisions()
+{
+    // There are observers in this node so we have to check their collisions
+    // with all possible lower observers.
+    if (m_observers->size() > 0) {
+        std::vector<Iobserver*>* lowers = get_lower();
+        check_collisions(*m_observers, *lowers);
+        safe_delete(lowers);
+    }
+
+    // Check collisions in all subdivisions
+    for (auto q : *m_subdivisions) {
+        q->check_subdivision_collisions();
+    }
+}
+
+/*
+Initializes the vector of all lower observers from this quad_node. Calls an
+overloaded version of itself that sends all of the data back to this function.
+*/
+std::vector<Iobserver*>* quad_node::get_lower()
+{
+    // Initializes the vector pointer to store all lower observers
+    std::vector<Iobserver*>* lows = new std::vector<Iobserver*>();
+    
+    // Call overloaded get_lower(...) recursively
+    for (auto s : *m_subdivisions) {
+        s->get_lower(lows);
+    }
+
+    // Return vector filled with all lower observers
+    return lows;
+}
+
+/*
+Recursive function that 
+*/
+std::vector<Iobserver*>* quad_node::get_lower(std::vector<Iobserver*>* previous)
+{
+    // Push all observers into lowers list if there are observers at this level
+    for (auto o : *m_observers) {
+        previous->push_back(o);
+    }
+
+    // Call overloaded get_lower(...) recursively if there are more subdivisions
+    for (auto s : *m_subdivisions) {
+        s->get_lower(previous);
+    }
+
+    // Send vector back up call stack to the top
+    return previous;
 }
 
 bool quad_node::not_leaf()

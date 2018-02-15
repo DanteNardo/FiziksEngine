@@ -1,20 +1,20 @@
 #include "bounds.h"
 
-bounds::bounds()
+aa_bounds::aa_bounds()
 {
 
 }
 
-bounds::bounds(v2f pos, int width, int height)
+aa_bounds::bounds(v2f pos, int width, int height)
 {
 
 }
 
-bounds::~bounds()
+aa_bounds::~aa_bounds()
 {
 }
 
-bool bounds::contains(bounds* bound)
+bool aa_bounds::contains(aa_bounds* bound)
 {
     return (m_pos.x < bound->get_pos().x &&
             m_pos.y < bound->get_pos().y &&
@@ -22,29 +22,29 @@ bool bounds::contains(bounds* bound)
             m_pos.y + m_height > bound->get_pos().y + bound->get_height());
 }
 
-bounds bounds::top_left()
+aa_bounds aa_bounds::top_left()
 {
-    return bounds(v2f(0, 0), m_width/2, m_height/2);
+    return aa_bounds(v2f(0, 0), m_width/2, m_height/2);
 }
 
-bounds bounds::top_right()
+aa_bounds aa_bounds::top_right()
 {
-    return bounds(v2f(m_width/2, 0), m_width/2, m_height/2);
+    return aa_bounds(v2f(m_width/2, 0), m_width/2, m_height/2);
 }
 
-bounds bounds::bottom_left()
+aa_bounds aa_bounds::bottom_left()
 {
-    return bounds(v2f(0, m_height/2), m_width/2, m_height/2);
+    return aa_bounds(v2f(0, m_height/2), m_width/2, m_height/2);
 }
 
-bounds bounds::bottom_right()
+aa_bounds aa_bounds::bottom_right()
 {
-    return bounds(v2f(m_width/2, m_height/2), m_width/2, m_height/2);
+    return aa_bounds(v2f(m_width/2, m_height/2), m_width/2, m_height/2);
 }
 
 /*
 Getters for x, y, width, and height.
 */
-v2f bounds::get_pos() { return m_pos; }
-int bounds::get_width() { return m_width; }
-int bounds::get_height() { return m_height; }
+v2f aa_bounds::get_pos() { return m_pos; }
+int aa_bounds::get_width() { return m_width; }
+int aa_bounds::get_height() { return m_height; }
