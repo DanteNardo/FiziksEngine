@@ -16,6 +16,7 @@ public:
 	void update();
 	void draw(sf::RenderWindow* window);
 	sf::Sprite* get_sprite();
+	sf::FloatRect* get_rect();
 
 protected:
 	sf::Sprite* m_sprite;

@@ -66,7 +66,4 @@ private:
 	fiziks_engine* m_engine;
 };
 
-// Included after Iobserver to avoid building from an incomplete type
-#include "k_entity.h"
-
 #endif // !FIZIKS_ENGINE_H

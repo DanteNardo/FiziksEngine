@@ -1,5 +1,5 @@
 // Author: Dante Nardo
-// Last Modified: 2/15/2018
+// Last Modified: 2/19/2018
 // Purpose: Performs collision checking operations based on collider types.
 
 #ifndef COLLISIONS_H

@@ -1,40 +1,42 @@
 #include "quad_node.h"
 
+// Only called on Root quad_node
 quad_node::quad_node()
 {
-	m_bounds = new bounds(v2f(0, 0), 640, 480);
+	m_rect = new sf::FloatRect(v2f(0, 0), v2f(640, 480));
     m_subdivisions = new std::vector<quad_node*>();
-    m_observers = new std::vector<Iobserver*>();
+    m_entities = new std::vector<entity*>();
 
+    m_collisions = collisions();
     partition();
 }
 
-quad_node::quad_node(bounds* bound)
+quad_node::quad_node(sf::FloatRect* rect)
 {
     m_depth = 0;
-    m_bounds = bound;
+    m_rect = rect;
     m_subdivisions = new std::vector<quad_node*>();
-    m_observers = new std::vector<Iobserver*>();
+    m_entities = new std::vector<entity*>();
 }
 
-quad_node::quad_node(bounds* bound, int depth)
+quad_node::quad_node(sf::FloatRect* rect, int depth)
 {
     m_depth = depth;
-    m_bounds = bound;
+    m_rect = rect;
     m_subdivisions = new std::vector<quad_node*>();
-    m_observers = new std::vector<Iobserver*>();
+    m_entities = new std::vector<entity*>();
 }
 
 quad_node::~quad_node()
 {
-    safe_delete(m_bounds);
+    safe_delete(m_rect);
     safe_delete(m_subdivisions);
-    safe_delete(m_observers);
+    safe_delete(m_entities);
 }
 
-bounds* quad_node::get_bounds()
+sf::FloatRect* quad_node::get_rect()
 {
-    return m_bounds;
+    return m_rect;
 }
 
 void quad_node::set_final_depth(int final_depth)
@@ -46,17 +48,17 @@ void quad_node::set_final_depth(int final_depth)
 /*
 Recursive function that distributes all observers among entire quad tree.
 */
-void quad_node::add_observers(std::vector<Iobserver*>* observers)
+void quad_node::add_observers(std::vector<entity*>* observers)
 {
     // Copy observers over to quad tree
     for (auto o : *observers) {
-        m_observers->push_back(o);
+        m_entities->push_back(o);
     }
 
     // Move observers to children and remove from parent
-    for (int i = 0; i < m_observers->size(); i++) {
-        if (add_to_subdivision((*m_observers)[i])) {
-            m_observers->erase(m_observers->begin()+i);
+    for (int i = 0; i < m_entities->size(); i++) {
+        if (add_to_subdivision((*m_entities)[i])) {
+            m_entities->erase(m_entities->begin()+i);
             i--;
         }
     }
@@ -64,14 +66,14 @@ void quad_node::add_observers(std::vector<Iobserver*>* observers)
     // Add observers from children to grandchildren
     if (m_depth + 1 <= m_final_depth) {
         for (auto q : *m_subdivisions) {
-            q->add_observers(m_observers);
+            q->add_observers(m_entities);
         }
     }
 }
 
-void quad_node::add_observer(Iobserver* observe)
+void quad_node::add_observer(entity* observe)
 {
-    m_observers->push_back(observe);
+    m_entities->push_back(observe);
 }
 
 /*
@@ -96,27 +98,27 @@ parent node by 4. Called an amount of times equal to m_final_depth^2.
 void quad_node::create_subdivisions()
 {
     // Split partition into four quads
-    quad_node* q1 = new quad_node(&m_bounds->top_left(), m_depth + 1);
-    quad_node* q2 = new quad_node(&m_bounds->top_right(), m_depth + 1);
-    quad_node* q3 = new quad_node(&m_bounds->bottom_left(), m_depth + 1);
-    quad_node* q4 = new quad_node(&m_bounds->bottom_right(), m_depth + 1);
+    //quad_node* q1 = new quad_node(&m_rect->top_left(), m_depth + 1);
+    //quad_node* q2 = new quad_node(&m_rect->top_right(), m_depth + 1);
+    //quad_node* q3 = new quad_node(&m_rect->bottom_left(), m_depth + 1);
+    //quad_node* q4 = new quad_node(&m_rect->bottom_right(), m_depth + 1);
 
     // Create branches
-    m_subdivisions->push_back(q1);
-    m_subdivisions->push_back(q2);
-    m_subdivisions->push_back(q3);
-    m_subdivisions->push_back(q4);
+    //m_subdivisions->push_back(q1);
+    //m_subdivisions->push_back(q2);
+    //m_subdivisions->push_back(q3);
+    //m_subdivisions->push_back(q4);
 }
 
 /*
 Determines which subdivision this observer should be added to, if it should be
 added. Returns true if added to a subdivision, else false.
 */
-bool quad_node::add_to_subdivision(Iobserver* observer_to_add)
+bool quad_node::add_to_subdivision(entity* entity_to_add)
 {
     for (auto q : *m_subdivisions) {
-        if (q->get_bounds()->contains(observer_to_add->get_bounds())) {
-            q->add_observer(observer_to_add);
+        if (q->get_rect()->intersects(*entity_to_add->get_rect())) {
+            q->add_observer(entity_to_add);
             return true;
         }
     }
@@ -124,12 +126,14 @@ bool quad_node::add_to_subdivision(Iobserver* observer_to_add)
 	return false;
 }
 
-void check_collisions(std::vector<Iobserver*> A, std::vector<Iobserver*> B)
+/*
+Checks collisions with two lists of entities and perform physics response.
+*/
+void quad_node::check_collisions(std::vector<entity*> A, std::vector<entity*> B)
 {
-    // Iterate through two vectors that contain the collision objects
     for (auto a : A) {
         for (auto b : B) {
-            m_collisions->check(a, b);
+            m_collisions.check(*a, *b);
         }
     }
 }
@@ -138,9 +142,9 @@ void quad_node::check_subdivision_collisions()
 {
     // There are observers in this node so we have to check their collisions
     // with all possible lower observers.
-    if (m_observers->size() > 0) {
-        std::vector<Iobserver*>* lowers = get_lower();
-        check_collisions(*m_observers, *lowers);
+    if (m_entities->size() > 0) {
+        std::vector<entity*>* lowers = get_lower();
+        check_collisions(*m_entities, *lowers);
         safe_delete(lowers);
     }
 
@@ -154,10 +158,10 @@ void quad_node::check_subdivision_collisions()
 Initializes the vector of all lower observers from this quad_node. Calls an
 overloaded version of itself that sends all of the data back to this function.
 */
-std::vector<Iobserver*>* quad_node::get_lower()
+std::vector<entity*>* quad_node::get_lower()
 {
     // Initializes the vector pointer to store all lower observers
-    std::vector<Iobserver*>* lows = new std::vector<Iobserver*>();
+    std::vector<entity*>* lows = new std::vector<entity*>();
     
     // Call overloaded get_lower(...) recursively
     for (auto s : *m_subdivisions) {
@@ -171,10 +175,10 @@ std::vector<Iobserver*>* quad_node::get_lower()
 /*
 Recursive function that 
 */
-std::vector<Iobserver*>* quad_node::get_lower(std::vector<Iobserver*>* previous)
+std::vector<entity*>* quad_node::get_lower(std::vector<entity*>* previous)
 {
     // Push all observers into lowers list if there are observers at this level
-    for (auto o : *m_observers) {
+    for (auto o : *m_entities) {
         previous->push_back(o);
     }
 

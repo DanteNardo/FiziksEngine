@@ -1,4 +1,5 @@
 #include "fiziks_engine.h"
+#include "k_entity.h"
 
 fiziks_engine::fiziks_engine()
 {

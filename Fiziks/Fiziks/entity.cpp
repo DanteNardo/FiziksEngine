@@ -25,3 +25,8 @@ sf::Sprite* entity::get_sprite()
 {
 	return m_sprite;
 }
+
+sf::FloatRect* entity::get_rect()
+{
+	return &m_sprite->getGlobalBounds();
+}
