@@ -6,6 +6,16 @@ collisions::collisions()
 
 collisions::~collisions()
 {
+	safe_delete(s_instance);
+}
+
+collisions* collisions::get_instance()
+{
+	if (s_instance == nullptr) {
+		s_instance = new collisions();
+		return s_instance;
+	}
+	return s_instance;
 }
 
 bool collisions::check(entity& a, entity& b)

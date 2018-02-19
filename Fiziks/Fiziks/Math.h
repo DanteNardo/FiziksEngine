@@ -63,4 +63,36 @@ inline float dot(const v3f& v1, const v3f& v2)
 	return (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
 }
 
+inline sf::FloatRect top_left(const sf::FloatRect& rect)
+{
+	return sf::FloatRect(rect.left,
+						 rect.top,
+						 rect.width/2,
+						 rect.height/2);
+}
+
+inline sf::FloatRect top_right(const sf::FloatRect& rect)
+{
+	return sf::FloatRect(rect.left + rect.width/2,
+						 rect.top,
+						 rect.width/2,
+						 rect.height/2);
+}
+
+inline sf::FloatRect bottom_left(const sf::FloatRect& rect)
+{
+	return sf::FloatRect(rect.left,
+						 rect.top + rect.height/2,
+						 rect.width/2,
+						 rect.height/2);
+}
+
+inline sf::FloatRect bottom_right(const sf::FloatRect& rect)
+{
+	return sf::FloatRect(rect.left + rect.width/2,
+						 rect.top + rect.height/2,
+						 rect.width/2,
+						 rect.height/2);
+}
+
 #endif // !MATH_H

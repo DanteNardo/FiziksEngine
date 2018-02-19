@@ -12,8 +12,8 @@ class quad_node
 {
 public:
 	quad_node();
-	quad_node(sf::FloatRect* bound);
-	quad_node(sf::FloatRect* bound, int depth);
+	quad_node(sf::FloatRect* rect);
+	quad_node(sf::FloatRect* rect, int depth);
 	~quad_node();
 
 	sf::FloatRect* get_rect();
@@ -28,7 +28,6 @@ public:
 private:
 	int m_depth;
 	static int m_final_depth;
-	static collisions m_collisions;
 	sf::FloatRect* m_rect;
 
 	std::vector<quad_node*>* m_subdivisions;
@@ -40,8 +39,7 @@ private:
 	bool not_leaf();
 };
 
-// Declare static variables
+// Declare static depth
 int quad_node::m_final_depth;
-collisions quad_node::m_collisions;
 
 #endif // !QUAD_NODE_H

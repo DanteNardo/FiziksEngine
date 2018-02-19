@@ -48,7 +48,7 @@ void quad_node::set_final_depth(int final_depth)
 /*
 Recursive function that distributes all observers among entire quad tree.
 */
-void quad_node::add_observers(std::vector<entity*>* observers)
+void quad_node::add_observers(std::vector<entity*>* entities)
 {
     // Copy observers over to quad tree
     for (auto o : *observers) {
@@ -71,7 +71,7 @@ void quad_node::add_observers(std::vector<entity*>* observers)
     }
 }
 
-void quad_node::add_observer(entity* observe)
+void quad_node::add_observer(entity* e)
 {
     m_entities->push_back(observe);
 }
@@ -98,16 +98,16 @@ parent node by 4. Called an amount of times equal to m_final_depth^2.
 void quad_node::create_subdivisions()
 {
     // Split partition into four quads
-    //quad_node* q1 = new quad_node(&m_rect->top_left(), m_depth + 1);
-    //quad_node* q2 = new quad_node(&m_rect->top_right(), m_depth + 1);
-    //quad_node* q3 = new quad_node(&m_rect->bottom_left(), m_depth + 1);
-    //quad_node* q4 = new quad_node(&m_rect->bottom_right(), m_depth + 1);
+    quad_node* q1 = new quad_node(&top_left(m_rect), m_depth + 1);
+    quad_node* q2 = new quad_node(&top_right(m_rect), m_depth + 1);
+    quad_node* q3 = new quad_node(&bottom_left(m_rect), m_depth + 1);
+    quad_node* q4 = new quad_node(&bottom_right(m_rect), m_depth + 1);
 
     // Create branches
-    //m_subdivisions->push_back(q1);
-    //m_subdivisions->push_back(q2);
-    //m_subdivisions->push_back(q3);
-    //m_subdivisions->push_back(q4);
+    m_subdivisions->push_back(q1);
+    m_subdivisions->push_back(q2);
+    m_subdivisions->push_back(q3);
+    m_subdivisions->push_back(q4);
 }
 
 /*
@@ -133,7 +133,7 @@ void quad_node::check_collisions(std::vector<entity*> A, std::vector<entity*> B)
 {
     for (auto a : A) {
         for (auto b : B) {
-            m_collisions.check(*a, *b);
+            collisions::check(*a, *b);
         }
     }
 }
@@ -173,7 +173,7 @@ std::vector<entity*>* quad_node::get_lower()
 }
 
 /*
-Recursive function that 
+Recursive function that gets all of the entities in the lower branches.
 */
 std::vector<entity*>* quad_node::get_lower(std::vector<entity*>* previous)
 {
