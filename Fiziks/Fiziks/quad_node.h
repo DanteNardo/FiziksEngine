@@ -18,8 +18,8 @@ public:
 
 	sf::FloatRect* get_rect();
 	void set_final_depth(int final_depth);
-	void add_observers(std::vector<entity*>* entities);
-	void add_observer(entity* e);
+	void add_entities(std::vector<entity*>* entities);
+	void add_entity(entity* e);
 	void check_collisions(std::vector<entity*> a, std::vector<entity*> b);
 	void check_subdivision_collisions();
 	std::vector<entity*>* get_lower();

@@ -6,8 +6,6 @@ quad_node::quad_node()
 	m_rect = new sf::FloatRect(v2f(0, 0), v2f(640, 480));
     m_subdivisions = new std::vector<quad_node*>();
     m_entities = new std::vector<entity*>();
-
-    m_collisions = collisions();
     partition();
 }
 
@@ -48,10 +46,10 @@ void quad_node::set_final_depth(int final_depth)
 /*
 Recursive function that distributes all observers among entire quad tree.
 */
-void quad_node::add_observers(std::vector<entity*>* entities)
+void quad_node::add_entities(std::vector<entity*>* entities)
 {
     // Copy observers over to quad tree
-    for (auto o : *observers) {
+    for (auto o : *entities) {
         m_entities->push_back(o);
     }
 
@@ -66,14 +64,14 @@ void quad_node::add_observers(std::vector<entity*>* entities)
     // Add observers from children to grandchildren
     if (m_depth + 1 <= m_final_depth) {
         for (auto q : *m_subdivisions) {
-            q->add_observers(m_entities);
+            q->add_entities(m_entities);
         }
     }
 }
 
-void quad_node::add_observer(entity* e)
+void quad_node::add_entity(entity* e)
 {
-    m_entities->push_back(observe);
+    m_entities->push_back(e);
 }
 
 /*
@@ -92,16 +90,16 @@ void quad_node::partition()
 }
 
 /*
-Adds four children to the current quad node and subdivides the bounds of the
+Adds four children to the current Xquad node and subdivides the bounds of the
 parent node by 4. Called an amount of times equal to m_final_depth^2.
 */
 void quad_node::create_subdivisions()
 {
     // Split partition into four quads
-    quad_node* q1 = new quad_node(&top_left(m_rect), m_depth + 1);
-    quad_node* q2 = new quad_node(&top_right(m_rect), m_depth + 1);
-    quad_node* q3 = new quad_node(&bottom_left(m_rect), m_depth + 1);
-    quad_node* q4 = new quad_node(&bottom_right(m_rect), m_depth + 1);
+    quad_node* q1 = new quad_node(&top_left(*m_rect), m_depth + 1);
+    quad_node* q2 = new quad_node(&top_right(*m_rect), m_depth + 1);
+    quad_node* q3 = new quad_node(&bottom_left(*m_rect), m_depth + 1);
+    quad_node* q4 = new quad_node(&bottom_right(*m_rect), m_depth + 1);
 
     // Create branches
     m_subdivisions->push_back(q1);
@@ -118,7 +116,7 @@ bool quad_node::add_to_subdivision(entity* entity_to_add)
 {
     for (auto q : *m_subdivisions) {
         if (q->get_rect()->intersects(*entity_to_add->get_rect())) {
-            q->add_observer(entity_to_add);
+            q->add_entity(entity_to_add);
             return true;
         }
     }
@@ -133,7 +131,7 @@ void quad_node::check_collisions(std::vector<entity*> A, std::vector<entity*> B)
 {
     for (auto a : A) {
         for (auto b : B) {
-            collisions::check(*a, *b);
+            collisions::get_instance()->check(*a, *b);
         }
     }
 }
