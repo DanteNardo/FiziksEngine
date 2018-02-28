@@ -1,8 +1,7 @@
 // Dante Nardo
-// Last Modified: 2/2/2018
+// Last Modified: 2/28/2018
 // Purpose: Controls the physics engine and application.
 
-#include <SFML/Graphics.hpp>
 #include "fiziks_engine.h"
 
 int main()

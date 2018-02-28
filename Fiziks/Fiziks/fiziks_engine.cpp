@@ -27,7 +27,7 @@ fiziks_engine::~fiziks_engine()
 void fiziks_engine::update()
 {
 	// Save the delta time every frame
-	m_delta_time = m_delta_timer->restart();
+	m_delta_time = m_delta_timer->restart().asSeconds();
 
 	for (auto o : m_views) {
 		o->update();
@@ -53,12 +53,12 @@ void fiziks_engine::notify()
 	}
 }
 
-sf::Time fiziks_engine::get_time()
+float fiziks_engine::get_time()
 {
-	return m_timer->getElapsedTime();
+	return m_timer->getElapsedTime().asSeconds();
 }
 
-sf::Time fiziks_engine::get_delta_time()
+float fiziks_engine::get_delta_time()
 {
 	return m_delta_time;
 }

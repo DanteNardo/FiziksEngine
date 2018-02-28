@@ -12,8 +12,8 @@ kinematics::kinematics(integration integration, k_point* k_point)
 	m_k_point = k_point;
 
 	// Apply angle to initial velocity
-	m_k_point->m_vel.x *= (float)(cos(m_k_point->m_theta * PI / 180));
-	m_k_point->m_vel.y *= (float)(sin(m_k_point->m_theta * PI / 180));
+	m_k_point->m_vel.x *= (float)(cos(rad(m_k_point->m_theta)));
+	m_k_point->m_vel.y *= (float)(sin(rad(m_k_point->m_theta)));
 }
 
 kinematics::~kinematics()
@@ -21,24 +21,24 @@ kinematics::~kinematics()
 	safe_delete(m_k_point);
 }
 
-void kinematics::update(const sf::Time* tt, const sf::Time* dt)
+void kinematics::update(const float dt, const float tt)
 {
 	switch (m_integration)
 	{
 	case ExplicitEuler:
-		explicit_euler_integration(dt->asSeconds());
+		explicit_euler_integration(dt);
 		break;
 	case SemiImplicitEuler:
-		semi_implicit_euler_integration(dt->asSeconds());
+		semi_implicit_euler_integration(dt);
 		break;
 	case RungeKutta4:
-		runge_kutta_4_integration(dt->asSeconds());
+		runge_kutta_4_integration(dt);
 		break;
 	case UniformAcceleration:
-		uniform_acceleration(tt->asSeconds());
+		uniform_acceleration(tt);
 		break;
 	case ProjectileMotion:
-		projectile_motion(tt->asSeconds());
+		projectile_motion(tt);
 		break;
 	}
 }
@@ -113,9 +113,10 @@ and it can be more expensive in processing power.
 void kinematics::projectile_motion(const float tt)
 {
 	// x(t) = initial v times cos(theta)
-	m_k_point->m_pos.x = m_k_point->m_i_vel.x * cos(m_k_point->m_theta * PI / 180) * tt;
+	m_k_point->m_pos.x = m_k_point->m_i_vel.x * cos(rad(m_k_point->m_theta)) * tt;
 
-	// y(t) = 	(initial v times sin(theta) times t) minus 
+	// y(t) = 	(initial v times sin(theta) times t) plus 
 	// 			(one half of GRAVITY times (time squared))
-	m_k_point->m_pos.y = (m_k_point->m_i_vel.y * sin(m_k_point->m_theta * PI / 180) * tt) + (0.5f * GRAVITY * (pow(tt, 2)));
+	m_k_point->m_pos.y = (m_k_point->m_i_vel.y * sin(rad(m_k_point->m_theta)) * tt) + 
+						 (0.5f * GRAVITY * (pow(tt, 2)));
 }

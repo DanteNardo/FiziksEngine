@@ -23,7 +23,4 @@ private:
 	bool SAT(entity& a, entity& b); // Satisfiability Problem
 };
 
-// Declare static instance
-collisions* collisions::s_instance = nullptr;
-
 #endif // !COLLISIONS_H

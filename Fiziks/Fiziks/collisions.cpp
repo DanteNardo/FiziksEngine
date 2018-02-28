@@ -1,5 +1,8 @@
 #include "collisions.h"
 
+// Declare static instance
+collisions* collisions::s_instance = nullptr;
+
 collisions::collisions()
 {
 }

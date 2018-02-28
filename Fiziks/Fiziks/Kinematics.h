@@ -52,7 +52,7 @@ public:
 	kinematics(integration integration, k_point* k_point);
 	~kinematics();
 
-	void update(const sf::Time* tt, const sf::Time* dt);
+	void update(const float dt, const float tt);
 	k_point* get_k_point();
 
 private:

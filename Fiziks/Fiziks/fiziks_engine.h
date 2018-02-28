@@ -27,8 +27,8 @@ public:
 	void attach(class Iobserver* view);
 	void notify();
 
-	sf::Time get_time();
-	sf::Time get_delta_time();
+	float get_time();
+	float get_delta_time();
 	v2f world_to_screen(const v2f& position);
 
 private:
@@ -36,7 +36,7 @@ private:
 
 	sf::Clock* m_timer;
 	sf::Clock* m_delta_timer;
-	sf::Time m_delta_time;
+	float m_delta_time;
 };
 
 /*

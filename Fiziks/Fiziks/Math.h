@@ -1,5 +1,5 @@
 // Dante Nardo
-// Last Modified: 2/19/2018
+// Last Modified: 2/28/2018
 // Purpose: Defines constants and implements important universal functions.
 
 #ifndef MATH_H
@@ -33,6 +33,11 @@ inline void safe_delete(void* pointer)
 {
 	delete pointer;
 	pointer = nullptr;
+}
+
+inline float rad(const float theta)
+{
+	return theta * PI / 180;
 }
 
 inline v2f normalize(const v2f& v)
