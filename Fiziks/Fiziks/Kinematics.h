@@ -1,11 +1,11 @@
 // Dante Nardo
-// Last Modified: 2/13/2018
+// Last Modified: 3/1/2018
 // Purpose: Performs the calculations for all Kinematics equations.
 
 #ifndef KINEMATICS_H
 #define KINEMATICS_H
 
-#include "math.h"
+#include "rigidbody.h"
 
 enum integration
 {
@@ -16,49 +16,21 @@ enum integration
 	ProjectileMotion
 };
 
-struct k_point
-{
-	v2f m_i_pos;
-	v2f m_i_vel;
-	v2f m_pos;
-	v2f m_vel;
-	v2f m_acc;
-	int m_theta;
-
-	k_point::k_point()
-	{
-		m_i_pos = v2f(0, 0);
-		m_i_vel = v2f(0, 0);
-		m_pos = v2f(0, 0);
-		m_vel = v2f(0, 0);
-		m_acc = v2f(0, 0);
-	}
-
-	k_point::k_point(v2f pos, v2f vel, v2f acc, int theta)
-	{
-		m_i_pos = pos;
-		m_i_vel = vel;
-		m_pos = pos;
-		m_vel = vel;
-		m_acc = acc;
-		m_theta = theta;
-	}
-};
-
 class kinematics
 {
 public:
 	kinematics();
-	kinematics(integration integration, k_point* k_point);
+	kinematics(integration integration, rigidbody* rb);
 	~kinematics();
 
 	void update(const float dt, const float tt);
-	k_point* get_k_point();
+	rigidbody* get_rigidbody();
 
 private:
 	integration m_integration;
-	k_point* m_k_point;
+	rigidbody* m_rb;
 
+	// Different integration methods
 	void explicit_euler_integration(const float dt);
 	void semi_implicit_euler_integration(const float dt);
 	void runge_kutta_4_integration(const float dt);

@@ -1,4 +1,9 @@
-﻿  quad_node.cpp
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\quad_node.cpp(59): warning C4018: '<': signed/unsigned mismatch
-  Fiziks.vcxproj -> C:\Users\dante\Source\Repos\FiziksEngine\Fiziks\Debug\Fiziks.exe
-  Fiziks.vcxproj -> C:\Users\dante\Source\Repos\FiziksEngine\Fiziks\Debug\Fiziks.pdb (Full PDB)
+﻿  k_entity.cpp
+c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\math.h(40): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\k_entity.cpp(8): warning C4305: 'argument': truncation from 'double' to 'float'
+c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\k_entity.cpp(23): error C2248: 'rigidbody::m_p': cannot access private member declared in class 'rigidbody'
+  c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(34): note: see declaration of 'rigidbody::m_p'
+  c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(11): note: see declaration of 'rigidbody'
+c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\k_entity.cpp(28): error C2248: 'rigidbody::m_p': cannot access private member declared in class 'rigidbody'
+  c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(34): note: see declaration of 'rigidbody::m_p'
+  c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(11): note: see declaration of 'rigidbody'

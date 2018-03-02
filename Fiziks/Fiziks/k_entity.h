@@ -1,5 +1,5 @@
 // Dante Nardo
-// Last Modified: 2/15/2018
+// Last Modified: 3/1/2018
 // Purpose: A kinematic entity that undergoes kinematics simulation.
 
 #ifndef K_ENTITY_H

@@ -1,5 +1,5 @@
 // Author: Dante Nardo
-// Last Modified: 2/19/2018
+// Last Modified: 3/1/2018
 // Purpose: Performs collision checking operations based on collider types.
 
 #ifndef COLLISIONS_H
@@ -20,7 +20,7 @@ private:
 	static collisions* s_instance;
 
 	bool OBB(entity& a, entity& b); // Oriented Bounding Box
-	bool SAT(entity& a, entity& b); // Satisfiability Problem
+	bool SAT(entity& a, entity& b); // Separating Axis Theorem
 };
 
 #endif // !COLLISIONS_H
