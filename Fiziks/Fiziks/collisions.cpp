@@ -25,6 +25,7 @@ bool collisions::check(entity& a, entity& b)
 {
     if (OBB(a, b)) {
         if (SAT(a, b)) {
+			resolve(a, b);
             return true;
         }
     }
@@ -34,7 +35,7 @@ bool collisions::check(entity& a, entity& b)
 
 bool collisions::OBB(entity& a, entity& b)
 {
-	return a.get_bounds().intersects(b.get_bounds());
+	return a.bounds().intersects(b.bounds());
 }
 
 /*
@@ -49,10 +50,10 @@ bool collisions::SAT(entity& a, entity& b)
     #pragma region Define Object Vertices
 	v2f a_points[4];
 	v2f b_points[4];
-	sf::FloatRect ab = a.get_shape()->getLocalBounds(); // For readability
-	sf::FloatRect bb = b.get_shape()->getLocalBounds(); // For readability
-	const float* a_matrix = a.get_shape()->getTransform().getMatrix();
-	const float* b_matrix = b.get_shape()->getTransform().getMatrix();
+	sf::FloatRect ab = a.shape()->getLocalBounds(); // For readability
+	sf::FloatRect bb = b.shape()->getLocalBounds(); // For readability
+	const float* a_matrix = a.shape()->getTransform().getMatrix();
+	const float* b_matrix = b.shape()->getTransform().getMatrix();
 
 	a_points[0] = v2f(ab.left, ab.top);
 	a_points[1] = v2f(ab.left + ab.width, ab.top);
@@ -149,4 +150,31 @@ bool collisions::SAT(entity& a, entity& b)
 
 	// DEFAULT RETURN
 	return false;
+}
+
+void collisions::resolve(entity& a, entity& b)
+{
+	v2f rel_vel = b.rb()->v() - a.rb()->v();
+
+	float n_vel = dot(rel_vel, normal);
+
+	// If there is a collision but objects are moving away, don't stop them
+	if (n_vel > 0) return;
+
+	// Calculate restitution (bouncyness, elasticity)
+	float e = std::min(a.rb()->rest(), b.rb()->rest);
+
+	// Calculate impulse
+	float j = -(1 + e) * n_vel;
+	j /= a.rb()->im() + b.rb()->im();
+
+	// Apply impulse
+	v2f impulse = j * normal;
+	a.rb()->v(a.rb()->v() - a.rb()->im() * impulse);
+	b.rb()->v(b.rb()->v() - b.rb()->im() * impulse);
+}
+
+void collisions::fix_penetration(entity& a, entity& b)
+{
+	
 }

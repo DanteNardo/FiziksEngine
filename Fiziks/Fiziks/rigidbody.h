@@ -11,7 +11,7 @@ class rigidbody
 {
 public:
 	rigidbody();
-	rigidbody(v2f pos, v2f vel, v2f acc, int theta);
+	rigidbody(v2f pos, v2f vel, v2f acc, int theta, float m);
 	~rigidbody();
 
     // Getters
@@ -21,12 +21,14 @@ public:
     v2f& v();
     v2f& a();
     int t();
+    float im();
 
     // Setters
     void p(v2f const& p);
     void v(v2f const& v);
     void a(v2f const& a);
     void t(int const& t);
+    void im(float const& im);
     
 private:
     v2f m_ip;	// Initial position
@@ -35,6 +37,7 @@ private:
 	v2f m_v;	// Velocity
 	v2f m_a;	// Acceleration
 	int m_t;	// Theta
+    float m_im; // Inverse of Mass: Easier use
 };
 
 #endif // !RIGIDBODY_H

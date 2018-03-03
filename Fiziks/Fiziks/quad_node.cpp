@@ -115,7 +115,7 @@ added. Returns true if added to a subdivision, else false.
 bool quad_node::add_to_subdivision(entity* entity_to_add)
 {
     for (auto q : *m_subdivisions) {
-        if (q->get_rect()->intersects(entity_to_add->get_bounds())) {
+        if (q->get_rect()->intersects(entity_to_add->bounds())) {
             q->add_entity(entity_to_add);
             return true;
         }

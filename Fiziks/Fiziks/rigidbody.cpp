@@ -8,9 +8,10 @@ rigidbody::rigidbody()
     m_v = v2f(0, 0);
     m_a = v2f(0, 0);
     m_t = 0;
+    m_im = 1;
 }
 
-rigidbody::rigidbody(v2f pos, v2f vel, v2f acc, int theta)
+rigidbody::rigidbody(v2f pos, v2f vel, v2f acc, int theta, float m)
 {
     m_ip = pos;
     m_iv = vel;
@@ -18,6 +19,7 @@ rigidbody::rigidbody(v2f pos, v2f vel, v2f acc, int theta)
     m_v = vel;
     m_a = acc;
     m_t = theta;
+    m_im = 1 / m;
 
 	// Apply angle to initial velocity
 	m_v.x *= (float)(cos(rad(m_t)));
@@ -35,9 +37,11 @@ v2f& rigidbody::p()  { return m_p; }
 v2f& rigidbody::v() { return m_v; }
 v2f& rigidbody::a() { return m_a; }
 int rigidbody::t() { return m_t; }
+float rigidbody::im() { return m_im; }
 
 // Setters
 void rigidbody::p(v2f const& p) { m_p = p; }
 void rigidbody::v(v2f const& v) { m_v = v; }
 void rigidbody::a(v2f const& a) { m_a = a; }
 void rigidbody::t(int const& t) { m_t = t; }
+void rigidbody::im(float const& m) { m_im = m; }
