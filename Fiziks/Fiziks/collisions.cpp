@@ -34,8 +34,7 @@ bool collisions::check(entity& a, entity& b)
 
 bool collisions::OBB(entity& a, entity& b)
 {
-	return a.get_sprite()->getGlobalBounds().intersects(
-		   b.get_sprite()->getGlobalBounds());
+	return a.get_bounds().intersects(b.get_bounds());
 }
 
 /*
@@ -50,10 +49,10 @@ bool collisions::SAT(entity& a, entity& b)
     #pragma region Define Object Vertices
 	v2f a_points[4];
 	v2f b_points[4];
-	sf::FloatRect ab = a.get_sprite()->getLocalBounds(); // For readability
-	sf::FloatRect bb = b.get_sprite()->getLocalBounds(); // For readability
-	const float* a_matrix = a.get_sprite()->getTransform().getMatrix();
-	const float* b_matrix = b.get_sprite()->getTransform().getMatrix();
+	sf::FloatRect ab = a.get_shape()->getLocalBounds(); // For readability
+	sf::FloatRect bb = b.get_shape()->getLocalBounds(); // For readability
+	const float* a_matrix = a.get_shape()->getTransform().getMatrix();
+	const float* b_matrix = b.get_shape()->getTransform().getMatrix();
 
 	a_points[0] = v2f(ab.left, ab.top);
 	a_points[1] = v2f(ab.left + ab.width, ab.top);

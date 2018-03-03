@@ -78,7 +78,7 @@
     </ClCompile>
     <Link>
       <AdditionalLibraryDirectories>C:\libs\SFML-2.4.2\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -127,24 +127,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="circle.h" />
     <ClInclude Include="collisions.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="fiziks_engine.h" />
     <ClInclude Include="kinematics.h" />
-    <ClInclude Include="k_entity.h" />
     <ClInclude Include="math.h" />
     <ClInclude Include="quad_node.h" />
+    <ClInclude Include="rectangle.h" />
     <ClInclude Include="rigidbody.h" />
+    <ClInclude Include="triangle.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="circle.cpp" />
     <ClCompile Include="collisions.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="fiziks_app.cpp" />
     <ClCompile Include="fiziks_engine.cpp" />
     <ClCompile Include="kinematics.cpp" />
-    <ClCompile Include="k_entity.cpp" />
     <ClCompile Include="quad_node.cpp" />
+    <ClCompile Include="rectangle.cpp" />
     <ClCompile Include="rigidbody.cpp" />
+    <ClCompile Include="triangle.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

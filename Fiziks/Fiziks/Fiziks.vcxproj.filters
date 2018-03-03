@@ -13,57 +13,87 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Entities">
+      <UniqueIdentifier>{917f82eb-3f6c-414d-92e2-f6f93ec57133}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entities">
+      <UniqueIdentifier>{9bf7cec8-7fcd-43ce-ae3f-a0b3e21ea888}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Computation">
+      <UniqueIdentifier>{89f93e52-a5a3-4051-b728-b955521c41a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Collisions">
+      <UniqueIdentifier>{73bbd163-e798-4208-bfce-5cb90d6c8b29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Computation">
+      <UniqueIdentifier>{e24737bb-937a-4c3e-ba0c-949a8eadc6a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Collisions">
+      <UniqueIdentifier>{4adff1b4-9314-4dec-9320-ccfbd9b4a3b0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="fiziks_engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="k_entity.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="entity.h">
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
     <ClInclude Include="kinematics.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Computation</Filter>
     </ClInclude>
     <ClInclude Include="math.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="quad_node.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="collisions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="entity.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Computation</Filter>
     </ClInclude>
     <ClInclude Include="rigidbody.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Computation</Filter>
+    </ClInclude>
+    <ClInclude Include="collisions.h">
+      <Filter>Header Files\Collisions</Filter>
+    </ClInclude>
+    <ClInclude Include="quad_node.h">
+      <Filter>Header Files\Collisions</Filter>
+    </ClInclude>
+    <ClInclude Include="circle.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="rectangle.h">
+      <Filter>Header Files\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="triangle.h">
+      <Filter>Header Files\Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="fiziks_engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="k_entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="kinematics.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="fiziks_app.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="quad_node.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="collisions.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="entity.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
     <ClCompile Include="rigidbody.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Computation</Filter>
+    </ClCompile>
+    <ClCompile Include="kinematics.cpp">
+      <Filter>Source Files\Computation</Filter>
+    </ClCompile>
+    <ClCompile Include="collisions.cpp">
+      <Filter>Source Files\Collisions</Filter>
+    </ClCompile>
+    <ClCompile Include="quad_node.cpp">
+      <Filter>Source Files\Collisions</Filter>
+    </ClCompile>
+    <ClCompile Include="circle.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="rectangle.cpp">
+      <Filter>Source Files\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="triangle.cpp">
+      <Filter>Source Files\Entities</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

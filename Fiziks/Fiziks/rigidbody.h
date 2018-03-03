@@ -1,5 +1,5 @@
 // Author: Dante Nardo
-// Last Modified: 3/1/2018
+// Last Modified: 3/2/2018
 // Purpose: Performs collision checking operations based on collider types.
 
 #ifndef RIGIDBODY_H

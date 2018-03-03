@@ -1,5 +1,7 @@
 #include "fiziks_engine.h"
-#include "k_entity.h"
+#include "circle.h"
+#include "rectangle.h"
+#include "triangle.h"
 
 fiziks_engine::fiziks_engine()
 {
@@ -8,10 +10,9 @@ fiziks_engine::fiziks_engine()
 	m_delta_timer = new sf::Clock();
 
 	// TODO: No longer hardcode this
-	k_entity* exp_euler_entity = new k_entity(this, ExplicitEuler);
-	k_entity* imp_euler_entity = new k_entity(this, SemiImplicitEuler);
-	k_entity* uni_entity = new k_entity(this, UniformAcceleration);
-	k_entity* proj_entity = new k_entity(this, ProjectileMotion);
+	circle* c = new circle(this, ExplicitEuler, 5, 21);
+	rectangle* r = new rectangle(this, ExplicitEuler, v2f(5, 5));
+	triangle* t = new triangle(this, ExplicitEuler, 5, 5);
 }
 
 fiziks_engine::~fiziks_engine()
