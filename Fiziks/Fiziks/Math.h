@@ -69,6 +69,12 @@ inline float dot(const v3f& v1, const v3f& v2)
 	return (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
 }
 
+inline float pythag(float a, float b)
+{
+	// Pythagorean theorem: A^2 + B^2 = C^2
+	return sqrt(pow(a, 2) + pow(b, 2));
+}
+
 inline sf::FloatRect top_left(const sf::FloatRect& rect)
 {
 	return sf::FloatRect(rect.left,

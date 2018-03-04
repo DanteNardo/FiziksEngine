@@ -1,13 +1,12 @@
-﻿  triangle.cpp
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\math.h(40): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\triangle.cpp(9): warning C4305: 'argument': truncation from 'double' to 'float'
-  rectangle.cpp
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\math.h(40): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rectangle.cpp(9): warning C4305: 'argument': truncation from 'double' to 'float'
-  circle.cpp
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\math.h(40): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\circle.cpp(6): warning C4244: 'argument': conversion from 'float' to 'std::size_t', possible loss of data
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\circle.cpp(9): warning C4305: 'argument': truncation from 'double' to 'float'
-  Generating Code...
-  Fiziks.vcxproj -> C:\Users\dante\Source\Repos\FiziksEngine\Fiziks\Debug\Fiziks.exe
-  Fiziks.vcxproj -> C:\Users\dante\Source\Repos\FiziksEngine\Fiziks\Debug\Fiziks.pdb (Full PDB)
+﻿  collisions.cpp
+c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\math.h(41): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(37): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(41): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(45): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(49): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(81): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\collisions.cpp(30): error C2064: term does not evaluate to a function taking 2 arguments
+c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\collisions.cpp(100): warning C4018: '<': signed/unsigned mismatch
+c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\collisions.cpp(131): warning C4018: '<': signed/unsigned mismatch
+c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\collisions.cpp(293): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\collisions.cpp(294): warning C4305: 'initializing': truncation from 'double' to 'float'

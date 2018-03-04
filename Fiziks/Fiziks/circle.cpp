@@ -6,8 +6,9 @@ entity(fiziks)
 	m_shape = new sf::CircleShape(radius, size);
 	m_shape->setPosition(v2f(200, 200));
 	m_shape->setFillColor(sf::Color::Green);
-	m_rb = new rigidbody(v2f(0, 0), v2f(150, 150), v2f(0, GRAVITY), 45);
-	m_kinematics = new kinematics(i, m_rb);
+	//m_rb = new rigidbody(v2f(0, 0), v2f(150, 150), v2f(0, GRAVITY), 45);
+	//m_kinematics = new kinematics(i, m_rb);
+	m_type = Circ;
 }
 
 circle::~circle()

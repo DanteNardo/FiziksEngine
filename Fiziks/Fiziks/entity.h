@@ -8,6 +8,15 @@
 #include "fiziks_engine.h"
 #include "kinematics.h"
 
+#define NUM_ETYPE 3;
+
+enum e_type
+{
+	Rect,
+	Circ,
+	Tria
+};
+
 class entity : public Iobserver
 {
 public:
@@ -19,8 +28,10 @@ public:
 	virtual sf::Shape* shape();
 	sf::FloatRect bounds();
 	rigidbody* rb();
+	e_type type();
 
 protected:
+	e_type m_type;
 	sf::Shape* m_shape;
 	kinematics* m_kinematics;
 	rigidbody* m_rb;

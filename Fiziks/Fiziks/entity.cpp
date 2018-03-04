@@ -24,3 +24,8 @@ rigidbody* entity::rb()
 {
 	return m_rb;
 }
+
+e_type entity::type()
+{
+	return m_type;
+}

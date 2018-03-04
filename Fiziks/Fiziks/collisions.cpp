@@ -23,17 +23,28 @@ collisions* collisions::get_instance()
 
 bool collisions::check(entity& a, entity& b)
 {
-    if (OBB(a, b)) {
-        if (SAT(a, b)) {
-			resolve(a, b);
-            return true;
-        }
+	// First, check shape's axis realigned bounding box (least precise)
+    if (ARBB(a, b)) {
+
+		// Second, call specific shape collision checks ie CirclevRect
+		if (this->*shape_check[a.type()][b.type()](a, b)) {
+
+			// Lastly, call complicated SAT check
+			if (SAT(a, b)) {
+
+				// Generate collision data (manifold) and resolve collision
+				manifold m = gen_manifold(a, b);
+				resolve(m);
+				fix_pen(m);
+				return true;
+			}
+		}
     }
 
     return false;
 }
 
-bool collisions::OBB(entity& a, entity& b)
+bool collisions::ARBB(entity& a, entity& b)
 {
 	return a.bounds().intersects(b.bounds());
 }
@@ -152,29 +163,138 @@ bool collisions::SAT(entity& a, entity& b)
 	return false;
 }
 
-void collisions::resolve(entity& a, entity& b)
+bool collisions::c_rr(entity & a, entity & b)
 {
-	v2f rel_vel = b.rb()->v() - a.rb()->v();
+	return false;
+}
 
-	float n_vel = dot(rel_vel, normal);
+bool collisions::c_rc(entity & a, entity & b)
+{
+	return false;
+}
+
+bool collisions::c_rt(entity & a, entity & b)
+{
+	return false;
+}
+
+bool collisions::c_cr(entity & a, entity & b)
+{
+	return false;
+}
+
+bool collisions::c_cc(entity & a, entity & b)
+{
+	return false;
+}
+
+bool collisions::c_ct(entity & a, entity & b)
+{
+	return false;
+}
+
+bool collisions::c_tr(entity & a, entity & b)
+{
+	return false;
+}
+
+bool collisions::c_tc(entity & a, entity & b)
+{
+	return false;
+}
+
+bool collisions::c_tt(entity & a, entity & b)
+{
+	return false;
+}
+
+manifold collisions::gen_manifold(entity& a, entity& b)
+{
+
+}
+
+float collisions::tot_mass(entity& a, entity& b)
+{
+	return a.rb()->im() + b.rb()->im();
+}
+
+float collisions::pen(entity& a, entity& b)
+{
+	
+}
+
+void collisions::resolve(const manifold& m)
+{
+	// Save pointers for cleaner code
+	entity* a = m.a;
+	entity* b = m.b;
+
+	// Compute the normalized relative velocity of both objects
+	v2f rel_v = b->rb()->v() - a->rb()->v();
+	float n_vel = dot(rel_v, m.norm);
 
 	// If there is a collision but objects are moving away, don't stop them
 	if (n_vel > 0) return;
 
 	// Calculate restitution (bouncyness, elasticity)
-	float e = std::min(a.rb()->rest(), b.rb()->rest);
+	float e = std::min(a->rb()->rest(), b->rb()->rest());
 
-	// Calculate impulse
+	// Calculate impulse magnitude
 	float j = -(1 + e) * n_vel;
-	j /= a.rb()->im() + b.rb()->im();
+	j /= tot_mass(*a, *b);
 
 	// Apply impulse
-	v2f impulse = j * normal;
-	a.rb()->v(a.rb()->v() - a.rb()->im() * impulse);
-	b.rb()->v(b.rb()->v() - b.rb()->im() * impulse);
+	v2f impulse = j * m.norm;
+	a->rb()->v(-1.0f, a->rb()->im() * impulse);
+	b->rb()->v(1.0f, b->rb()->im() * impulse);
+
+	// Recalculate relative velocity post impulse
+	rel_v = b->rb()->v() - a->rb()->v();
+
+	// Solve for the tangent to the normal (for friction)
+	v2f tang = normalize(rel_v - dot(rel_v, m.norm) * m.norm);
+
+	// Solve for friction magnitude
+	float f = -dot(rel_v, tang);
+	f = f / tot_mass(*a, *b);
+
+	// Approximate mu given both object's static coefficients
+	float mu = pythag(a->rb()->sf(), b->rb()->sf());
+
+	// Coulomb's Law:
+	// Force of Friction <= friction coefficient * normal force
+	// This prevents friction from being greater than the normal force
+	v2f f_impulse;
+
+	// Static friction
+	if (abs(f) < j * mu) {
+		f_impulse = f * tang;
+	}
+	// Kinetic friction
+	// Recompute mu using kinetic coefficients instead of static
+	else {
+		mu = pythag(a->rb()->kf(), b->rb()->kf());
+		f_impulse = mu * -j * tang;
+	}
+
+	// Apply friction impulse
+	a->rb()->v(-1.0f, a->rb()->im() * f_impulse);
+	b->rb()->v(1.0f, b->rb()->im() * f_impulse);
 }
 
-void collisions::fix_penetration(entity& a, entity& b)
+void collisions::fix_pen(const manifold& m)
 {
-	
+	/*
+	Percent (p) determines the incremental movement we make to an object in
+	order to get it to move so that it's no longer penetrating.
+	Slop (s) is the value at which we ignore the miniscule penetration. This is
+	necessary so that objects don't "jitter" when they are touching each other.
+	*/
+	const float p = 0.2;
+	const float s = 0.01;
+
+	// Calculate correction amount, move a away and b away in opposite direction
+	v2f correct = std::max(m.pen - s, 0.0f) / tot_mass(*m.a, *m.b) * p * m.norm;
+	m.a->rb()->p(-1, m.a->rb()->im() * correct);
+	m.b->rb()->p(1, m.b->rb()->im() * correct);
 }
