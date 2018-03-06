@@ -12,10 +12,18 @@
 // Stores collision data between two objects.
 struct manifold
 {
-	entity* a;
-	entity* b;
-	float pen;
-	v2f norm;
+	entity* m_a;
+	entity* m_b;
+	float m_pen;
+	v2f m_norm;
+
+	manifold(entity* a, entity* b, float pen, v2f norm)
+	{
+		m_a = a;
+		m_b = b;
+		m_pen = pen;
+		m_norm = norm;
+	}
 };
 
 class collisions
@@ -44,8 +52,9 @@ private:
 	bool c_tt(entity& a, entity& b); // Triangle-Triangle Check
 
 	// Collision resolution
-	manifold gen_manifold(entity& a, entity& b);
 	float tot_mass(entity& a, entity& b);
+	manifold gen_manifold(entity& a, entity& b);
+	v2f norm(const entity& a, const entity& b);
 	float pen(entity& a, entity& b);
 	void resolve(const manifold& m);
 	void fix_pen(const manifold& m);

@@ -27,7 +27,7 @@ bool collisions::check(entity& a, entity& b)
     if (ARBB(a, b)) {
 
 		// Second, call specific shape collision checks ie CirclevRect
-		if (this->*shape_check[a.type()][b.type()](a, b)) {
+		if (collisions::*shape_check[a.type()][b.type()](a, b)) {
 
 			// Lastly, call complicated SAT check
 			if (SAT(a, b)) {
@@ -44,6 +44,11 @@ bool collisions::check(entity& a, entity& b)
     return false;
 }
 
+/*
+Axis Realigned Bounding Box
+This is an Axis Aligned Bounding Box for a rotated object. This means that the
+AABB is much larger than normal to accommodate every 
+*/
 bool collisions::ARBB(entity& a, entity& b)
 {
 	return a.bounds().intersects(b.bounds());
@@ -163,52 +168,59 @@ bool collisions::SAT(entity& a, entity& b)
 	return false;
 }
 
-bool collisions::c_rr(entity & a, entity & b)
+#pragma region Shape Checking
+bool collisions::c_rr(entity& a, entity& b)
 {
 	return false;
 }
 
-bool collisions::c_rc(entity & a, entity & b)
+bool collisions::c_rc(entity& a, entity& b)
 {
 	return false;
 }
 
-bool collisions::c_rt(entity & a, entity & b)
+bool collisions::c_rt(entity& a, entity& b)
 {
 	return false;
 }
 
-bool collisions::c_cr(entity & a, entity & b)
+bool collisions::c_cr(entity& a, entity& b)
 {
 	return false;
 }
 
-bool collisions::c_cc(entity & a, entity & b)
+bool collisions::c_cc(entity& a, entity& b)
+{
+	float dist = pow(b.rb()->p().x - a.rb()->p().x, 2) + 
+				 pow(b.rb()->p().y - a.rb()->p().y, 2);
+
+bool collisions::c_ct(entity& a, entity& b)
 {
 	return false;
 }
 
-bool collisions::c_ct(entity & a, entity & b)
+bool collisions::c_tr(entity& a, entity& b)
 {
 	return false;
 }
 
-bool collisions::c_tr(entity & a, entity & b)
+bool collisions::c_tc(entity& a, entity& b)
 {
 	return false;
 }
 
-bool collisions::c_tc(entity & a, entity & b)
+bool collisions::c_tt(entity& a, entity& b)
 {
 	return false;
 }
-
-bool collisions::c_tt(entity & a, entity & b)
-{
-	return false;
-}
+#pragma endregion
 
 manifold collisions::gen_manifold(entity& a, entity& b)
+{
+	return manifold(&a, &b, pen(a, b), norm(a, b));
+}
+
+v2f collisions::norm(const entity& a, const entity& b)
 {
 
 }
@@ -226,12 +238,12 @@ float collisions::pen(entity& a, entity& b)
 void collisions::resolve(const manifold& m)
 {
 	// Save pointers for cleaner code
-	entity* a = m.a;
-	entity* b = m.b;
+	entity* a = m.m_a;
+	entity* b = m.m_b;
 
 	// Compute the normalized relative velocity of both objects
 	v2f rel_v = b->rb()->v() - a->rb()->v();
-	float n_vel = dot(rel_v, m.norm);
+	float n_vel = dot(rel_v, m.m_norm);
 
 	// If there is a collision but objects are moving away, don't stop them
 	if (n_vel > 0) return;
@@ -244,7 +256,7 @@ void collisions::resolve(const manifold& m)
 	j /= tot_mass(*a, *b);
 
 	// Apply impulse
-	v2f impulse = j * m.norm;
+	v2f impulse = j * m.m_norm;
 	a->rb()->v(-1.0f, a->rb()->im() * impulse);
 	b->rb()->v(1.0f, b->rb()->im() * impulse);
 
@@ -252,7 +264,7 @@ void collisions::resolve(const manifold& m)
 	rel_v = b->rb()->v() - a->rb()->v();
 
 	// Solve for the tangent to the normal (for friction)
-	v2f tang = normalize(rel_v - dot(rel_v, m.norm) * m.norm);
+	v2f tang = normalize(rel_v - dot(rel_v, m.m_norm) * m.m_norm);
 
 	// Solve for friction magnitude
 	float f = -dot(rel_v, tang);
@@ -294,7 +306,7 @@ void collisions::fix_pen(const manifold& m)
 	const float s = 0.01;
 
 	// Calculate correction amount, move a away and b away in opposite direction
-	v2f correct = std::max(m.pen - s, 0.0f) / tot_mass(*m.a, *m.b) * p * m.norm;
-	m.a->rb()->p(-1, m.a->rb()->im() * correct);
-	m.b->rb()->p(1, m.b->rb()->im() * correct);
+	v2f correct = std::max(m.m_pen - s, 0.0f) / tot_mass(*m.m_a, *m.m_b) * p * m.m_norm;
+	m.m_a->rb()->p(-1, m.m_a->rb()->im() * correct);
+	m.m_b->rb()->p(1, m.m_b->rb()->im() * correct);
 }

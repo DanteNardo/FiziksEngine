@@ -140,8 +140,8 @@ private:
 	v2f m_a;	        // Acceleration
     v2f m_f;            // Net force
 	int m_t;	        // Theta
-    mass_data* m_mass;   // Mass data: contains inverses and inertia
-    material* m_mat;     // Material: contains density and restitution
+    mass_data* m_mass;  // Mass data: contains inverses and inertia
+    material* m_mat;    // Material: contains density and restitution
 };
 
 #endif // !RIGIDBODY_H
