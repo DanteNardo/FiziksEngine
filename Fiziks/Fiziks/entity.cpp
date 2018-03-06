@@ -10,7 +10,7 @@ entity::~entity()
 	safe_delete(m_shape);
 }
 
-sf::Shape* entity::shape()
+sf::ConvexShape* entity::shape()
 {
 	return m_shape;
 }

@@ -36,7 +36,7 @@ v2f triangle::get_pos()
 	return m_kinematics->get_rigidbody()->p();
 }
 
-sf::ConvexShape* triangle::get_shape()
+sf::ConvexShape* triangle::shape()
 {
 	return m_shape;
 }

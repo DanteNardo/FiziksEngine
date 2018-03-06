@@ -1,5 +1,5 @@
 // Author: Dante Nardo
-// Last Modified: 3/2/2018
+// Last Modified: 3/6/2018
 // Purpose: A circular fiziks entity.
 
 #ifndef RECTANGLE_H
@@ -16,13 +16,10 @@ public:
 
 	void update();
 	void draw(sf::RenderWindow* window);
-	sf::RectangleShape* get_shape();
-	v2f get_pos();
 
 private:
-	kinematics * m_kinematics;
-	rigidbody* m_rb;
-	sf::RectangleShape* m_shape;
+	const int SUBDIVISIONS = 21;
+	sf::ConvexShape* make_rect(float size);
 };
 
 #endif // !RECTANGLE_H

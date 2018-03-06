@@ -27,7 +27,7 @@ bool collisions::check(entity& a, entity& b)
     if (ARBB(a, b)) {
 
 		// Second, call specific shape collision checks ie CirclevRect
-		if (collisions::*shape_check[a.type()][b.type()](a, b)) {
+		//if (collisions::*shape_check[a.type()][b.type()](a, b)) {
 
 			// Lastly, call complicated SAT check
 			if (SAT(a, b)) {
@@ -38,7 +38,7 @@ bool collisions::check(entity& a, entity& b)
 				fix_pen(m);
 				return true;
 			}
-		}
+		//}
     }
 
     return false;
@@ -47,7 +47,8 @@ bool collisions::check(entity& a, entity& b)
 /*
 Axis Realigned Bounding Box
 This is an Axis Aligned Bounding Box for a rotated object. This means that the
-AABB is much larger than normal to accommodate every 
+AABB is much larger than normal to accommodate every point after the rotation.
+This is a simple and fast collision checking method, but imprecise.
 */
 bool collisions::ARBB(entity& a, entity& b)
 {
@@ -191,8 +192,20 @@ bool collisions::c_cr(entity& a, entity& b)
 
 bool collisions::c_cc(entity& a, entity& b)
 {
+	/*
+	// Convert the entities into the circle child class
+	circle* c1 = static_cast<circle*>(&a);
+	circle* c2 = static_cast<circle*>(&b);
+
+	// Distance between two circles
 	float dist = pow(b.rb()->p().x - a.rb()->p().x, 2) + 
 				 pow(b.rb()->p().y - a.rb()->p().y, 2);
+
+	// Return true if the distance is less than the radii sum
+	return dist < pow(c1->get_shape()->getRadius() + 
+					  c2->get_shape()->getRadius(), 2);*/
+	return pow(a.shape()->getRadius(), 2);
+}
 
 bool collisions::c_ct(entity& a, entity& b)
 {

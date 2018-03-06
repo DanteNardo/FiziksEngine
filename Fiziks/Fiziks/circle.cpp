@@ -3,12 +3,12 @@
 circle::circle(fiziks_engine* fiziks, integration i, float radius, float size) :
 entity(fiziks)
 {
-	m_shape = new sf::CircleShape(radius, size);
+	m_type = Circ;
+	m_shape = make_circ(radius, size);
 	m_shape->setPosition(v2f(200, 200));
 	m_shape->setFillColor(sf::Color::Green);
 	//m_rb = new rigidbody(v2f(0, 0), v2f(150, 150), v2f(0, GRAVITY), 45);
 	//m_kinematics = new kinematics(i, m_rb);
-	m_type = Circ;
 }
 
 circle::~circle()
@@ -31,12 +31,18 @@ void circle::draw(sf::RenderWindow * window)
 	window->draw(*m_shape);
 }
 
-sf::CircleShape* circle::get_shape()
+sf::ConvexShape* circle::make_circ(float radius, float size)
 {
-	return m_shape;
-}
+	// Initialize circle data
+	sf::ConvexShape* c = new sf::ConvexShape(SUBDIVISIONS);
+	float angle = 0;
+	int angleMod = 360 / SUBDIVISIONS;
 
-v2f circle::get_pos()
-{
-	return m_kinematics->get_rigidbody()->p();
+	// Create all circle points
+	for (int i = 0; i < SUBDIVISIONS; i++) {
+		c->setPoint(i, v2f(cos(rad(angle)), sin(rad(angle))));
+		angle += angleMod;
+	}
+
+	return c;
 }

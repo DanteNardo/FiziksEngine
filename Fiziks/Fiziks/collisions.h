@@ -1,5 +1,5 @@
 // Author: Dante Nardo
-// Last Modified: 3/3/2018
+// Last Modified: 3/6/2018
 // Purpose: Performs collision checking operations based on collider types.
 
 // Source: https://gamedevelopment.tutsplus.com/tutorials/how-to-create-a-custom-2d-physics-engine-the-basics-and-impulse-resolution--gamedev-6331
@@ -7,7 +7,9 @@
 #ifndef COLLISIONS_H
 #define COLLISIONS_H
 
-#include "entity.h"
+#include "circle.h"
+#include "rectangle.h"
+#include "triangle.h"
 
 // Stores collision data between two objects.
 struct manifold

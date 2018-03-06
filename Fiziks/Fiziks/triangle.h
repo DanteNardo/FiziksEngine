@@ -16,7 +16,7 @@ public:
 
 	void update();
 	void draw(sf::RenderWindow* window);
-	sf::ConvexShape* get_shape();
+	sf::ConvexShape* shape();
 	v2f get_pos();
 
 private:

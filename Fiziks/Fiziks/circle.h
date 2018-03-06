@@ -1,5 +1,5 @@
 // Author: Dante Nardo
-// Last Modified: 3/3/2018
+// Last Modified: 3/6/2018
 // Purpose: A circular fiziks entity.
 
 #ifndef CIRCLE_H
@@ -15,11 +15,10 @@ public:
 
 	void update();
 	void draw(sf::RenderWindow* window);
-	sf::CircleShape* get_shape();
-	v2f get_pos();
 
 private:
-	sf::CircleShape* m_shape;
+	const int SUBDIVISIONS = 21;
+	sf::ConvexShape* make_circ(float radius, float size);
 };
 
 #endif // !CIRCLE_H
