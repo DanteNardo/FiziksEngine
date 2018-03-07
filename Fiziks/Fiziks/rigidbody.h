@@ -1,5 +1,5 @@
 // Author: Dante Nardo
-// Last Modified: 3/3/2018
+// Last Modified: 3/6/2018
 // Purpose: Performs collision checking operations based on collider types.
 
 #ifndef RIGIDBODY_H
@@ -92,8 +92,7 @@ class rigidbody
 {
 public:
 	rigidbody();
-	rigidbody(v2f po, v2f ve, v2f ac, int th,    
-              float ma, float in, materials m);
+	rigidbody(v2f po, v2f ve, v2f ac, int th, materials m);
 	~rigidbody();
 
     #pragma region Getters and Setters
@@ -140,7 +139,7 @@ private:
 	v2f m_a;	        // Acceleration
     v2f m_f;            // Net force
 	int m_t;	        // Theta
-    mass_data* m_mass;  // Mass data: contains inverses and inertia
+    mass_data* m_mass;  // Mass data: contains mass, inertia, and inverses
     material* m_mat;    // Material: contains density and restitution
 };
 

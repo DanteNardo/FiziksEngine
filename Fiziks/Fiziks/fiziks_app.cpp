@@ -1,5 +1,5 @@
 // Dante Nardo
-// Last Modified: 2/28/2018
+// Last Modified: 3/6/2018
 // Purpose: Controls the physics engine and application.
 
 #include "fiziks_engine.h"
@@ -9,10 +9,7 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(1024, 768), "SFML works!");
 
 	// Initialize the engine
-	fiziks_engine* fiziks = new fiziks_engine();
-	sf::CircleShape circle = sf::CircleShape(20);
-	circle.setFillColor(sf::Color::Green);
-	circle.setPosition(512, 384);
+	fiziks_engine* fiziks = new fiziks_engine(&window);
 
 	// Main Application Loop
 	while (window.isOpen()) {
@@ -30,7 +27,6 @@ int main()
 
 		// Rendering
 		window.clear();
-		//window.draw(circle);
 		fiziks->draw(&window);
 		window.display();
 	}

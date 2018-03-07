@@ -23,23 +23,27 @@ collisions* collisions::get_instance()
 
 bool collisions::check(entity& a, entity& b)
 {
-	// First, check shape's axis realigned bounding box (least precise)
+	// Check shape's axis realigned bounding box (least precise)
     if (ARBB(a, b)) {
 
-		// Second, call specific shape collision checks ie CirclevRect
-		//if (collisions::*shape_check[a.type()][b.type()](a, b)) {
+		// Call complicated SAT check (most precise and intensive)
+		//if (SAT(a, b)) {
 
-			// Lastly, call complicated SAT check
-			if (SAT(a, b)) {
+			// TODO: Remove when not debugging
+			a.shape()->setFillColor(sf::Color::Red);
+			b.shape()->setFillColor(sf::Color::Red);
 
-				// Generate collision data (manifold) and resolve collision
-				manifold m = gen_manifold(a, b);
-				resolve(m);
-				fix_pen(m);
-				return true;
-			}
+			// Generate collision data (manifold) and resolve collision
+			manifold m = gen_manifold(a, b);
+			resolve(m);
+			fix_pen(m);
+			return true;
 		//}
     }
+
+	// TODO: Remove when not debugging
+	a.shape()->setFillColor(sf::Color::Green);
+	b.shape()->setFillColor(sf::Color::Green);
 
     return false;
 }
@@ -169,83 +173,24 @@ bool collisions::SAT(entity& a, entity& b)
 	return false;
 }
 
-#pragma region Shape Checking
-bool collisions::c_rr(entity& a, entity& b)
-{
-	return false;
-}
-
-bool collisions::c_rc(entity& a, entity& b)
-{
-	return false;
-}
-
-bool collisions::c_rt(entity& a, entity& b)
-{
-	return false;
-}
-
-bool collisions::c_cr(entity& a, entity& b)
-{
-	return false;
-}
-
-bool collisions::c_cc(entity& a, entity& b)
-{
-	/*
-	// Convert the entities into the circle child class
-	circle* c1 = static_cast<circle*>(&a);
-	circle* c2 = static_cast<circle*>(&b);
-
-	// Distance between two circles
-	float dist = pow(b.rb()->p().x - a.rb()->p().x, 2) + 
-				 pow(b.rb()->p().y - a.rb()->p().y, 2);
-
-	// Return true if the distance is less than the radii sum
-	return dist < pow(c1->get_shape()->getRadius() + 
-					  c2->get_shape()->getRadius(), 2);*/
-	return pow(a.shape()->getRadius(), 2);
-}
-
-bool collisions::c_ct(entity& a, entity& b)
-{
-	return false;
-}
-
-bool collisions::c_tr(entity& a, entity& b)
-{
-	return false;
-}
-
-bool collisions::c_tc(entity& a, entity& b)
-{
-	return false;
-}
-
-bool collisions::c_tt(entity& a, entity& b)
-{
-	return false;
-}
-#pragma endregion
-
 manifold collisions::gen_manifold(entity& a, entity& b)
 {
 	return manifold(&a, &b, pen(a, b), norm(a, b));
 }
 
-v2f collisions::norm(const entity& a, const entity& b)
+v2f collisions::norm(entity& a, entity& b)
 {
-
+	return v2f(0, 0);
 }
 
-float collisions::tot_mass(entity& a, entity& b)
+float collisions::t_m(entity& a, entity& b)
 {
 	return a.rb()->im() + b.rb()->im();
 }
 
 float collisions::pen(entity& a, entity& b)
 {
-	
+	return 0;
 }
 
 void collisions::resolve(const manifold& m)
@@ -266,7 +211,7 @@ void collisions::resolve(const manifold& m)
 
 	// Calculate impulse magnitude
 	float j = -(1 + e) * n_vel;
-	j /= tot_mass(*a, *b);
+	j /= t_m(*a, *b);
 
 	// Apply impulse
 	v2f impulse = j * m.m_norm;
@@ -281,7 +226,7 @@ void collisions::resolve(const manifold& m)
 
 	// Solve for friction magnitude
 	float f = -dot(rel_v, tang);
-	f = f / tot_mass(*a, *b);
+	f = f / t_m(*a, *b);
 
 	// Approximate mu given both object's static coefficients
 	float mu = pythag(a->rb()->sf(), b->rb()->sf());
@@ -319,7 +264,7 @@ void collisions::fix_pen(const manifold& m)
 	const float s = 0.01;
 
 	// Calculate correction amount, move a away and b away in opposite direction
-	v2f correct = std::max(m.m_pen - s, 0.0f) / tot_mass(*m.m_a, *m.m_b) * p * m.m_norm;
-	m.m_a->rb()->p(-1, m.m_a->rb()->im() * correct);
-	m.m_b->rb()->p(1, m.m_b->rb()->im() * correct);
+	v2f c = std::max(m.m_pen - s, 0.0f) / t_m(*m.m_a, *m.m_b)* p * m.m_norm;
+	m.m_a->rb()->p(-1, m.m_a->rb()->im() * c);
+	m.m_b->rb()->p(1, m.m_b->rb()->im() * c);
 }

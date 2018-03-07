@@ -1,9 +1,12 @@
 #include "quad_node.h"
 
+// Declare static depth
+int quad_node::m_final_depth;
+
 // Only called on Root quad_node
-quad_node::quad_node()
+quad_node::quad_node(sf::RenderWindow* window)
 {
-	m_rect = new sf::FloatRect(v2f(0, 0), v2f(640, 480));
+	m_rect = new sf::FloatRect(v2f(0, 0), (v2f)window->getSize());
     m_subdivisions = new std::vector<quad_node*>();
     m_entities = new std::vector<entity*>();
     partition();
@@ -49,8 +52,8 @@ Recursive function that distributes all observers among entire quad tree.
 void quad_node::add_entities(std::vector<entity*>* entities)
 {
     // Copy observers over to quad tree
-    for (auto o : *entities) {
-        m_entities->push_back(o);
+    for (auto e : *entities) {
+        add_entity(e);
     }
 
     // Move observers to children and remove from parent
@@ -72,6 +75,14 @@ void quad_node::add_entities(std::vector<entity*>* entities)
 void quad_node::add_entity(entity* e)
 {
     m_entities->push_back(e);
+}
+
+void quad_node::clear_entities()
+{
+    m_entities->clear();
+    for (auto s : *m_subdivisions) {
+        s->clear_entities();
+    }
 }
 
 /*
@@ -96,10 +107,10 @@ parent node by 4. Called an amount of times equal to m_final_depth^2.
 void quad_node::create_subdivisions()
 {
     // Split partition into four quads
-    quad_node* q1 = new quad_node(&top_left(*m_rect), m_depth + 1);
-    quad_node* q2 = new quad_node(&top_right(*m_rect), m_depth + 1);
-    quad_node* q3 = new quad_node(&bottom_left(*m_rect), m_depth + 1);
-    quad_node* q4 = new quad_node(&bottom_right(*m_rect), m_depth + 1);
+    quad_node* q1 = new quad_node(top_left(*m_rect), m_depth + 1);
+    quad_node* q2 = new quad_node(top_right(*m_rect), m_depth + 1);
+    quad_node* q3 = new quad_node(bottom_left(*m_rect), m_depth + 1);
+    quad_node* q4 = new quad_node(bottom_right(*m_rect), m_depth + 1);
 
     // Create branches
     m_subdivisions->push_back(q1);
@@ -131,7 +142,9 @@ void quad_node::check_collisions(std::vector<entity*> A, std::vector<entity*> B)
 {
     for (auto a : A) {
         for (auto b : B) {
-            collisions::get_instance()->check(*a, *b);
+            if (a != b) {
+                collisions::get_instance()->check(*a, *b);
+            }
         }
     }
 }
@@ -142,7 +155,10 @@ void quad_node::check_subdivision_collisions()
     // with all possible lower observers.
     if (m_entities->size() > 0) {
         std::vector<entity*>* lowers = get_lower();
-        check_collisions(*m_entities, *lowers);
+        if (lowers->size() > 0) {
+            check_collisions(*m_entities, *lowers);
+        }
+        check_collisions(*m_entities, *m_entities);
         safe_delete(lowers);
     }
 
@@ -192,4 +208,24 @@ std::vector<entity*>* quad_node::get_lower(std::vector<entity*>* previous)
 bool quad_node::not_leaf()
 {
     return m_depth != m_final_depth;
+}
+
+void quad_node::draw_tree(sf::RenderWindow* window)
+{
+    sf::RectangleShape r = sf::RectangleShape(v2f(m_rect->width, m_rect->height));
+	v2f pos = v2f(m_rect->left, m_rect->top);// world_to_screen(v2f(m_rect->left, m_rect->top));
+    r.setPosition(pos.x, pos.y);
+	if (m_entities->size() > 0) {
+		r.setOutlineColor(sf::Color::White);
+	}
+	else {
+		r.setOutlineColor(sf::Color::Transparent);
+	}
+    r.setOutlineThickness(1);
+    r.setFillColor(sf::Color::Transparent);
+    window->draw(r);
+
+    for (auto s : *m_subdivisions) {
+        s->draw_tree(window);
+    }
 }

@@ -7,8 +7,8 @@ entity(fiziks)
 	m_shape = make_circ(radius, size);
 	m_shape->setPosition(v2f(200, 200));
 	m_shape->setFillColor(sf::Color::Green);
-	//m_rb = new rigidbody(v2f(0, 0), v2f(150, 150), v2f(0, GRAVITY), 45);
-	//m_kinematics = new kinematics(i, m_rb);
+	m_rb = new rigidbody(v2f(0, 0), v2f(150, 150), v2f(0, GRAVITY), 45, Rock);
+	m_kinematics = new kinematics(i, m_rb);
 }
 
 circle::~circle()
@@ -22,8 +22,7 @@ void circle::update()
 {
 	m_kinematics->update(get_engine()->get_delta_time(), 
 						 get_engine()->get_time());
-	m_shape->setPosition(get_engine()->world_to_screen(
-						 m_kinematics->get_rigidbody()->p()));
+	m_shape->setPosition(world_to_screen(m_rb->p()));
 }
 
 void circle::draw(sf::RenderWindow * window)
@@ -40,7 +39,8 @@ sf::ConvexShape* circle::make_circ(float radius, float size)
 
 	// Create all circle points
 	for (int i = 0; i < SUBDIVISIONS; i++) {
-		c->setPoint(i, v2f(cos(rad(angle)), sin(rad(angle))));
+		c->setPoint(i, v2f(cos(rad(angle)) * radius, 
+						   sin(rad(angle)) * radius));
 		angle += angleMod;
 	}
 

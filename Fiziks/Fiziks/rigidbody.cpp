@@ -13,8 +13,7 @@ rigidbody::rigidbody()
     m_mass = new mass_data(*m_mat, 0.0f, 0.0f);
 }
 
-rigidbody::rigidbody(v2f po, v2f ve, v2f ac, int th,    
-                    float ma, float in, materials m)
+rigidbody::rigidbody(v2f po, v2f ve, v2f ac, int th, materials m)
 {
     m_ip = po;
     m_iv = ve;
@@ -37,7 +36,7 @@ rigidbody::~rigidbody()
     safe_delete(m_mat);
 }
 
-// Getters
+#pragma region Default Getters
 v2f& rigidbody::ip() { return m_ip; }
 v2f& rigidbody::iv() { return m_iv; }
 v2f& rigidbody::p()  { return m_p; }
@@ -50,6 +49,7 @@ float rigidbody::rest() { return m_mat->m_rest; }
 float rigidbody::dens() { return m_mat->m_dens; }
 float rigidbody::sf() { return m_mat->m_sf; }
 float rigidbody::kf() { return m_mat->m_kf; }
+#pragma endregion
 
 #pragma region Default Setters
 void rigidbody::p(v2f const& p) { m_p = p; }

@@ -1,60 +1,10 @@
-﻿  triangle.cpp
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\math.h(41): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+﻿  quad_node.cpp
+c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\math.h(47): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
 c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(37): warning C4305: '=': truncation from 'double' to 'float'
 c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(41): warning C4305: '=': truncation from 'double' to 'float'
 c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(45): warning C4305: '=': truncation from 'double' to 'float'
 c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(49): warning C4305: '=': truncation from 'double' to 'float'
 c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(81): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  rectangle.cpp
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\math.h(41): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(37): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(41): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(45): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(49): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(81): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  collisions.cpp
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\math.h(41): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(37): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(41): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(45): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(49): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(81): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\collisions.cpp(106): warning C4018: '<': signed/unsigned mismatch
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\collisions.cpp(137): warning C4018: '<': signed/unsigned mismatch
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\collisions.cpp(208): error C2059: syntax error: '}'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\collisions.cpp(318): warning C4305: 'initializing': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\collisions.cpp(319): warning C4305: 'initializing': truncation from 'double' to 'float'
-  circle.cpp
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\math.h(41): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(37): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(41): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(45): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(49): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(81): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\circle.cpp(6): warning C4244: 'argument': conversion from 'float' to 'std::size_t', possible loss of data
-  Generating Code...
-  Compiling...
-  quad_node.cpp
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\math.h(41): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(37): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(41): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(45): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(49): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(81): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\quad_node.cpp(57): warning C4018: '<': signed/unsigned mismatch
-  fiziks_engine.cpp
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\math.h(41): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(37): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(41): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(45): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(49): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(81): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\fiziks_engine.cpp(20): warning C4018: '<': signed/unsigned mismatch
-  entity.cpp
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\math.h(41): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(37): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(41): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(45): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(49): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(81): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  Generating Code...
+c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\quad_node.cpp(60): warning C4018: '<': signed/unsigned mismatch
+  Fiziks.vcxproj -> C:\Users\dante\Source\Repos\FiziksEngine\Fiziks\Debug\Fiziks.exe
+  Fiziks.vcxproj -> C:\Users\dante\Source\Repos\FiziksEngine\Fiziks\Debug\Fiziks.pdb (Full PDB)

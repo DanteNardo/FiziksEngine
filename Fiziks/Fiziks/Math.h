@@ -36,6 +36,12 @@ inline void safe_delete(void* pointer)
 	pointer = nullptr;
 }
 
+// TODO: Don't hardcode this
+inline v2f world_to_screen(const v2f& position)
+{
+	return v2f(position.x, 768 - position.y);
+}
+
 inline float rad(const float theta)
 {
 	return theta * PI / 180;
@@ -75,36 +81,36 @@ inline float pythag(float a, float b)
 	return sqrt(pow(a, 2) + pow(b, 2));
 }
 
-inline sf::FloatRect top_left(const sf::FloatRect& rect)
+inline sf::FloatRect* top_left(const sf::FloatRect& rect)
 {
-	return sf::FloatRect(rect.left,
-						 rect.top,
-						 rect.width/2,
-						 rect.height/2);
+	return new sf::FloatRect(rect.left,
+							 rect.top,
+							 rect.width/2,
+							 rect.height/2);
 }
 
-inline sf::FloatRect top_right(const sf::FloatRect& rect)
+inline sf::FloatRect* top_right(const sf::FloatRect& rect)
 {
-	return sf::FloatRect(rect.left + rect.width/2,
-						 rect.top,
-						 rect.width/2,
-						 rect.height/2);
+	return new sf::FloatRect(rect.left + rect.width/2,
+							 rect.top,
+							 rect.width/2,
+							 rect.height/2);
 }
 
-inline sf::FloatRect bottom_left(const sf::FloatRect& rect)
+inline sf::FloatRect* bottom_left(const sf::FloatRect& rect)
 {
-	return sf::FloatRect(rect.left,
-						 rect.top + rect.height/2,
-						 rect.width/2,
-						 rect.height/2);
+	return new sf::FloatRect(rect.left,
+							 rect.top + rect.height/2,
+							 rect.width/2,
+							 rect.height/2);
 }
 
-inline sf::FloatRect bottom_right(const sf::FloatRect& rect)
+inline sf::FloatRect* bottom_right(const sf::FloatRect& rect)
 {
-	return sf::FloatRect(rect.left + rect.width/2,
-						 rect.top + rect.height/2,
-						 rect.width/2,
-						 rect.height/2);
+	return new sf::FloatRect(rect.left + rect.width/2,
+							 rect.top + rect.height/2,
+							 rect.width/2,
+							 rect.height/2);
 }
 
 #endif // !MATH_H

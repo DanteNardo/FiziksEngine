@@ -3,16 +3,24 @@
 #include "rectangle.h"
 #include "triangle.h"
 
-fiziks_engine::fiziks_engine()
+fiziks_engine::fiziks_engine(sf::RenderWindow* window)
 {
+	m_q_root = new quad_node(window);
+	m_q_root->set_final_depth(2);
 	m_views = std::vector<Iobserver*>();
 	m_timer = new sf::Clock();
 	m_delta_timer = new sf::Clock();
 
 	// TODO: No longer hardcode this
-	circle* c = new circle(this, ExplicitEuler, 5, 21);
-	rectangle* r = new rectangle(this, ExplicitEuler, v2f(5, 5));
-	triangle* t = new triangle(this, ExplicitEuler, 5, 5);
+	circle* c = new circle(this, ExplicitEuler, 20, 21);
+	//rectangle* r = new rectangle(this, ExplicitEuler, v2f(20, 5));
+	//triangle* t = new triangle(this, ExplicitEuler, 20, 20);
+
+	std::vector<entity*> es = std::vector<entity*>();
+	for (auto o : m_views) {
+		es.push_back(static_cast<entity*>(o));
+	}
+	m_q_root->add_entities(&es);
 }
 
 fiziks_engine::~fiziks_engine()
@@ -21,6 +29,7 @@ fiziks_engine::~fiziks_engine()
 		safe_delete(m_views[i]);
 	}
 
+	safe_delete(m_q_root);
 	safe_delete(m_timer);
 	safe_delete(m_delta_timer);
 }
@@ -33,10 +42,20 @@ void fiziks_engine::update()
 	for (auto o : m_views) {
 		o->update();
 	}
+
+	// Update quadtree
+	m_q_root->clear_entities();
+	std::vector<entity*> es = std::vector<entity*>();
+	for (auto o : m_views) {
+		es.push_back(static_cast<entity*>(o));
+	}
+	m_q_root->add_entities(&es);
 }
 
 void fiziks_engine::draw(sf::RenderWindow* window)
 {
+	m_q_root->draw_tree(window);
+
 	for (auto o : m_views) {
 		o->draw(window);
 	}
@@ -62,10 +81,4 @@ float fiziks_engine::get_time()
 float fiziks_engine::get_delta_time()
 {
 	return m_delta_time;
-}
-
-// TODO: Implement this correctly
-v2f fiziks_engine::world_to_screen(const v2f& position)
-{
-	return v2f(position.x, 768 - position.y);
 }

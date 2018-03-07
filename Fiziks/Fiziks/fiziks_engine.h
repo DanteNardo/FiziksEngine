@@ -1,5 +1,5 @@
 // Dante Nardo
-// Last Modified: 2/14/2018
+// Last Modified: 3/6/2018
 // Purpose: Runs the physics simulation.
 
 #ifndef FIZIKS_ENGINE_H
@@ -18,7 +18,7 @@ the subject when the values change.
 class fiziks_engine
 {
 public:
-    fiziks_engine();
+    fiziks_engine(sf::RenderWindow* window);
     ~fiziks_engine();
 
     void update();
@@ -29,9 +29,9 @@ public:
 
 	float get_time();
 	float get_delta_time();
-	v2f world_to_screen(const v2f& position);
 
 private:
+	class quad_node* m_q_root;
 	std::vector<Iobserver*> m_views;
 
 	sf::Clock* m_timer;
@@ -65,5 +65,9 @@ protected:
 private:
 	fiziks_engine* m_engine;
 };
+
+class entity;
+
+#include "quad_node.h"
 
 #endif // !FIZIKS_ENGINE_H

@@ -18,8 +18,7 @@ public:
 	void draw(sf::RenderWindow* window);
 
 private:
-	const int SUBDIVISIONS = 21;
-	sf::ConvexShape* make_rect(float size);
+	sf::ConvexShape* make_rect(v2f size);
 };
 
 #endif // !RECTANGLE_H
