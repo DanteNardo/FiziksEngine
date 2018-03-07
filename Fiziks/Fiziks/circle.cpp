@@ -1,13 +1,14 @@
 #include "circle.h"
 
-circle::circle(fiziks_engine* fiziks, integration i, float radius, float size) :
+circle::circle(fiziks_engine* fiziks, integration i, float radius) :
 entity(fiziks)
 {
 	m_type = Circ;
-	m_shape = make_circ(radius, size);
+	m_shape = make_circ(radius);
 	m_shape->setPosition(v2f(200, 200));
 	m_shape->setFillColor(sf::Color::Green);
-	m_rb = new rigidbody(v2f(0, 0), v2f(150, 150), v2f(0, GRAVITY), 45, Rock);
+	m_shape->setOrigin(v2f(radius, radius));
+	m_rb = new rigidbody(v2f(0, 0), v2f(150, 150), v2f(0, GRAVITY), 45, radius, Rock);
 	m_kinematics = new kinematics(i, m_rb);
 }
 
@@ -30,7 +31,7 @@ void circle::draw(sf::RenderWindow * window)
 	window->draw(*m_shape);
 }
 
-sf::ConvexShape* circle::make_circ(float radius, float size)
+sf::ConvexShape* circle::make_circ(float radius)
 {
 	// Initialize circle data
 	sf::ConvexShape* c = new sf::ConvexShape(SUBDIVISIONS);

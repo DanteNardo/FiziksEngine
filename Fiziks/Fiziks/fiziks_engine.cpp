@@ -12,8 +12,8 @@ fiziks_engine::fiziks_engine(sf::RenderWindow* window)
 	m_delta_timer = new sf::Clock();
 
 	// TODO: No longer hardcode this
-	circle* c = new circle(this, ExplicitEuler, 20, 21);
-	//rectangle* r = new rectangle(this, ExplicitEuler, v2f(20, 5));
+	circle* c = new circle(this, ExplicitEuler, 20);
+	rectangle* r = new rectangle(this, ExplicitEuler, v2f(50, 50));
 	//triangle* t = new triangle(this, ExplicitEuler, 20, 20);
 
 	std::vector<entity*> es = std::vector<entity*>();
@@ -50,6 +50,7 @@ void fiziks_engine::update()
 		es.push_back(static_cast<entity*>(o));
 	}
 	m_q_root->add_entities(&es);
+	m_q_root->check_subdivision_collisions();
 }
 
 void fiziks_engine::draw(sf::RenderWindow* window)

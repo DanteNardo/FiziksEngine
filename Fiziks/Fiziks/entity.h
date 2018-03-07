@@ -26,16 +26,18 @@ public:
 
 	virtual void update() = 0;
 	virtual void draw(sf::RenderWindow* window) = 0;
+
+	v2f center();
 	sf::ConvexShape* shape();
 	sf::FloatRect bounds();
 	rigidbody* rb();
 	e_type type();
 
 protected:
-	e_type m_type;
 	sf::ConvexShape* m_shape;
 	kinematics* m_kinematics;
 	rigidbody* m_rb;
+	e_type m_type;
 };
 
 #endif // !ENTITY_H

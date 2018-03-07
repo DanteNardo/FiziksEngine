@@ -13,7 +13,8 @@ rigidbody::rigidbody()
     m_mass = new mass_data(*m_mat, 0.0f, 0.0f);
 }
 
-rigidbody::rigidbody(v2f po, v2f ve, v2f ac, int th, materials m)
+rigidbody::rigidbody(v2f po, v2f ve, v2f ac, 
+                     int th, float wi, float he, materials m)
 {
     m_ip = po;
     m_iv = ve;
@@ -23,7 +24,25 @@ rigidbody::rigidbody(v2f po, v2f ve, v2f ac, int th, materials m)
     m_t = th;
     m_mat = new material(m);
 	// TODO: Fix constructor
-	m_mass = new mass_data(*m_mat, 0.0f, 0.0f);
+	m_mass = new mass_data(*m_mat, wi, he);
+
+	// Apply angle to initial velocity
+	m_v.x *= (float)(cos(rad(m_t)));
+	m_v.y *= (float)(sin(rad(m_t)));
+}
+
+rigidbody::rigidbody(v2f po, v2f ve, v2f ac, 
+                     int th, float ra, materials m)
+{
+    m_ip = po;
+    m_iv = ve;
+    m_p = po;
+    m_v = ve;
+    m_a = ac;
+    m_t = th;
+    m_mat = new material(m);
+	// TODO: Fix constructor
+	m_mass = new mass_data(*m_mat, ra);
 
 	// Apply angle to initial velocity
 	m_v.x *= (float)(cos(rad(m_t)));

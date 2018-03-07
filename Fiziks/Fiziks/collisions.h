@@ -1,5 +1,5 @@
 // Author: Dante Nardo
-// Last Modified: 3/6/2018
+// Last Modified: 3/7/2018
 // Purpose: Performs collision checking operations based on collider types.
 
 // Source: https://gamedevelopment.tutsplus.com/tutorials/how-to-create-a-custom-2d-physics-engine-the-basics-and-impulse-resolution--gamedev-6331
@@ -45,8 +45,9 @@ private:
 	// Collision resolution
 	float t_m(entity& a, entity& b);			 // Total mass
 	manifold gen_manifold(entity& a, entity& b); // Creates collision struct
+	v2f closest(entity& a, entity& b);			 // Finds the closest point
 	v2f norm(entity& a, entity& b);  			 // Finds the collision normal
-	float pen(entity& a, entity& b);			 // Finds the penetration
+	float pen(v2f norm);						 // Finds the penetration
 	void resolve(const manifold& m);			 // Resolves collisions
 	void fix_pen(const manifold& m);			 // Fixes object penetration
 };

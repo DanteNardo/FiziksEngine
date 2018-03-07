@@ -36,7 +36,7 @@ bool collisions::check(entity& a, entity& b)
 			// Generate collision data (manifold) and resolve collision
 			manifold m = gen_manifold(a, b);
 			resolve(m);
-			fix_pen(m);
+			//fix_pen(m);
 			return true;
 		//}
     }
@@ -175,22 +175,55 @@ bool collisions::SAT(entity& a, entity& b)
 
 manifold collisions::gen_manifold(entity& a, entity& b)
 {
-	return manifold(&a, &b, pen(a, b), norm(a, b));
+	v2f n = norm(a, b);
+	return manifold(&a, &b, pen(n), normalize(n));
 }
 
+/*
+Finds the closest vertex point a has to b's center.
+*/
+v2f collisions::closest(entity& a, entity& b)
+{
+	v2f dist;
+	v2f low = v2f(0,0);
+	int index = 0;
+	for (int i = 0; i < a.shape()->getPointCount(); i++) {
+		dist = a.shape()->getPoint(i) - b.center();
+		if (low.x == 0 && low.y == 0) {
+			low = dist;
+			index = i;
+		}
+		else if (pythag(low.x, low.y) > pythag(dist.x, dist.y)) {
+			low = dist;
+			index = i;
+		}
+	}
+
+	return a.shape()->getPoint(index);
+}
+
+/*
+Finds the collision normal.
+*/
 v2f collisions::norm(entity& a, entity& b)
 {
-	return v2f(0, 0);
+	return a.center() - closest(a, b);
 }
 
+/*
+Calculates the total mass.
+*/
 float collisions::t_m(entity& a, entity& b)
 {
 	return a.rb()->im() + b.rb()->im();
 }
 
-float collisions::pen(entity& a, entity& b)
+/*
+Calculates the penetration depth.
+*/
+float collisions::pen(v2f norm)
 {
-	return 0;
+	return pythag(norm.x, norm.y);
 }
 
 void collisions::resolve(const manifold& m)
@@ -248,8 +281,8 @@ void collisions::resolve(const manifold& m)
 	}
 
 	// Apply friction impulse
-	a->rb()->v(-1.0f, a->rb()->im() * f_impulse);
-	b->rb()->v(1.0f, b->rb()->im() * f_impulse);
+	//a->rb()->v(-1.0f, a->rb()->im() * f_impulse);
+	//b->rb()->v(1.0f, b->rb()->im() * f_impulse);
 }
 
 void collisions::fix_pen(const manifold& m)

@@ -1,5 +1,5 @@
 // Author: Dante Nardo
-// Last Modified: 3/6/2018
+// Last Modified: 3/7/2018
 // Purpose: A circular fiziks entity.
 
 #ifndef CIRCLE_H
@@ -10,7 +10,7 @@
 class circle : public entity
 {
 public:
-	circle(fiziks_engine* fiziks, integration i, float radius, float size);
+	circle(fiziks_engine* fiziks, integration i, float radius);
 	~circle();
 
 	void update();
@@ -18,7 +18,7 @@ public:
 
 private:
 	const int SUBDIVISIONS = 21;
-	sf::ConvexShape* make_circ(float radius, float size);
+	sf::ConvexShape* make_circ(float radius);
 };
 
 #endif // !CIRCLE_H

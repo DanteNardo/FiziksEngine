@@ -20,6 +20,11 @@ sf::FloatRect entity::bounds()
 	return m_shape->getGlobalBounds();
 }
 
+v2f entity::center()
+{
+	return m_rb->p();
+}
+
 rigidbody* entity::rb()
 {
 	return m_rb;

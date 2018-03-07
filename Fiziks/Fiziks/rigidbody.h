@@ -68,6 +68,7 @@ struct mass_data
 	mass_data(material& mat, float width, float height, float mod = 1.0f)
 	{
 		m_m = mat.m_dens * width * height;
+		m_m = 10;
 		// TODO: Calculate moment of inertia
 
 		// Calculate inverse mass and inertia, don't divide 0
@@ -79,6 +80,7 @@ struct mass_data
 	mass_data(material& mat, float radius)
 	{
 		m_m = mat.m_dens * PI * pow(radius, 2);
+		m_m = 50;
 		// TODO: Calculate moment of inertia
 
 		// Calculate inverse mass and inertia, don't divide 0
@@ -92,7 +94,10 @@ class rigidbody
 {
 public:
 	rigidbody();
-	rigidbody(v2f po, v2f ve, v2f ac, int th, materials m);
+	rigidbody(v2f po, v2f ve, v2f ac, 
+              int th, float wi, float he, materials m);
+	rigidbody(v2f po, v2f ve, v2f ac, 
+              int th, float ra, materials m);
 	~rigidbody();
 
     #pragma region Getters and Setters

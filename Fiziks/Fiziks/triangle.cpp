@@ -7,7 +7,11 @@ entity(fiziks)
 	m_shape = create_tri(w, h);
 	m_shape->setPosition(v2f(200, 200));
 	m_shape->setFillColor(sf::Color::Green);
-	m_rb = new rigidbody(v2f(0, 0), v2f(150, 150), v2f(0, GRAVITY), 45, Rock);
+	v2f center = v2f(
+		(m_shape->getPoint(0).x + m_shape->getPoint(1).x + m_shape->getPoint(2).x) / 3, 
+		(m_shape->getPoint(0).y + m_shape->getPoint(1).y + m_shape->getPoint(2).y) / 3);
+	m_shape->setOrigin(center);
+	m_rb = new rigidbody(v2f(0, 0), v2f(150, 150), v2f(0, GRAVITY), 45, w, h, Rock);
 	m_kinematics = new kinematics(i, m_rb);
 }
 
