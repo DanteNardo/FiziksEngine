@@ -68,7 +68,6 @@ struct mass_data
 	mass_data(material& mat, float width, float height, float mod = 1.0f)
 	{
 		m_m = mat.m_dens * width * height;
-		m_m = 10;
 		// TODO: Calculate moment of inertia
 
 		// Calculate inverse mass and inertia, don't divide 0
@@ -80,7 +79,6 @@ struct mass_data
 	mass_data(material& mat, float radius)
 	{
 		m_m = mat.m_dens * PI * pow(radius, 2);
-		m_m = 50;
 		// TODO: Calculate moment of inertia
 
 		// Calculate inverse mass and inertia, don't divide 0

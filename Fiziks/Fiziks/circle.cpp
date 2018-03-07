@@ -8,7 +8,7 @@ entity(fiziks)
 	m_shape->setPosition(v2f(200, 200));
 	m_shape->setFillColor(sf::Color::Green);
 	m_shape->setOrigin(v2f(radius, radius));
-	m_rb = new rigidbody(v2f(0, 0), v2f(150, 150), v2f(0, GRAVITY), 45, radius, Rock);
+	m_rb = new rigidbody(v2f(0, 0), v2f(200, 200), v2f(0, GRAVITY), 45, radius, Rock);
 	m_kinematics = new kinematics(i, m_rb);
 }
 

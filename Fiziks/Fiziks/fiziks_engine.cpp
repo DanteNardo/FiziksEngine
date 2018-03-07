@@ -13,7 +13,7 @@ fiziks_engine::fiziks_engine(sf::RenderWindow* window)
 
 	// TODO: No longer hardcode this
 	circle* c = new circle(this, ExplicitEuler, 20);
-	rectangle* r = new rectangle(this, ExplicitEuler, v2f(50, 50));
+	rectangle* r = new rectangle(this, ExplicitEuler, v2f(40, 40));
 	//triangle* t = new triangle(this, ExplicitEuler, 20, 20);
 
 	std::vector<entity*> es = std::vector<entity*>();
