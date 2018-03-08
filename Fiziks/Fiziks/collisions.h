@@ -1,5 +1,5 @@
 // Author: Dante Nardo
-// Last Modified: 3/7/2018
+// Last Modified: 3/8/2018
 // Purpose: Performs collision checking operations based on collider types.
 
 // Source: https://gamedevelopment.tutsplus.com/tutorials/how-to-create-a-custom-2d-physics-engine-the-basics-and-impulse-resolution--gamedev-6331

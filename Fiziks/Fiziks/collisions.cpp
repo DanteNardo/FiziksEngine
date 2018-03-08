@@ -53,8 +53,10 @@ Generates all of the normals for an entity's shape.
 */
 std::vector<v2f> collisions::gen_norms(entity& e)
 {
-	// Define normals
+	// Define variables
 	std::vector<v2f> normals;
+	sf::Transform t = sf::Transform();
+	t.rotate(e.shape()->getRotation());
 
 	// Iterate through all of the convex shape's points
 	for (int i = 0; i < e.shape()->getPointCount(); i++) {
@@ -71,7 +73,14 @@ std::vector<v2f> collisions::gen_norms(entity& e)
 		v2f n = v2f(edge.y, -edge.x);
 
 		// Push final result to array
-		normals.push_back(n);
+		v2f n1 = normalize(n);
+		normals.push_back(normalize(e.shape()->getTransform().transformPoint(normalize(n))));
+
+		// DEBUGGING
+		const float* m = t.getMatrix();
+		for (int j = 0; j < 16; j++) {
+			float test1 = m[j];
+		}
 	}
 
 	return normals;
@@ -122,8 +131,6 @@ bool collisions::SAT(entity& a, entity& b)
     #pragma region Setup Points and Normals
 	v2fs a_points = v2fs();
 	v2fs b_points = v2fs();
-
-	// THE PROBLEM IS THAT THESE POINTS ARE IN LOCAL SPACE NOT GLOBAL
 
 	for (int i = 0; i < a.shape()->getPointCount(); i++) {
 		a_points.push_back(a.shape()->getPoint(i));

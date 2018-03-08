@@ -25,6 +25,11 @@ v2f entity::center()
 	return m_rb->p();
 }
 
+v2f entity::global_vertex(int i)
+{
+	return m_shape->getTransform().transformPoint(m_shape->getPoint(i));
+}
+
 rigidbody* entity::rb()
 {
 	return m_rb;

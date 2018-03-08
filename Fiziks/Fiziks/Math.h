@@ -1,5 +1,5 @@
 // Dante Nardo
-// Last Modified: 2/28/2018
+// Last Modified: 3/8/2018
 // Purpose: Defines constants and implements important universal functions.
 
 #ifndef MATH_H

@@ -42,7 +42,7 @@ sf::ConvexShape* circle::make_circ(float radius)
 	for (int i = 0; i < SUBDIVISIONS; i++) {
 		c->setPoint(i, v2f(cos(rad(angle)) * radius, 
 						   sin(rad(angle)) * radius));
-		angle += angleMod;
+		angle -= angleMod;
 	}
 
 	return c;

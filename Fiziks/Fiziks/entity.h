@@ -1,5 +1,5 @@
 // Author: Dante Nardo
-// Last Modified: 3/6/2018
+// Last Modified: 3/8/2018
 // Purpose: A generic fiziks entity.
 
 #ifndef ENTITY_H
@@ -28,6 +28,7 @@ public:
 	virtual void draw(sf::RenderWindow* window) = 0;
 
 	v2f center();
+	v2f global_vertex(int i);
 	sf::ConvexShape* shape();
 	sf::FloatRect bounds();
 	rigidbody* rb();
