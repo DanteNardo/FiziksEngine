@@ -8,6 +8,7 @@
 #include <SFML\Graphics.hpp>
 #include <math.h>
 #include <algorithm>
+#include <vector>
 
 /*
 ================================================================================
@@ -16,6 +17,8 @@ All type definitions used in the Fiziks Engine.
 */
 typedef sf::Vector2f v2f;
 typedef sf::Vector3f v3f;
+typedef std::vector<v2f> v2fs;
+typedef std::vector<v3f> v3fs;
 
 /*
 ================================================================================

@@ -39,8 +39,10 @@ private:
 	static collisions* s_instance;
 
 	// Collision checking
-	bool ARBB(entity& a, entity& b); // Axis Realigned Bounding Box
-	bool SAT(entity& a, entity& b);  // Separating Axis Theorem
+	v2fs gen_norms(entity& e); 				// Get an entity's normals
+	v2f projection(v2fs& points, v2f axis); // Get an entity's projection
+	bool ARBB(entity& a, entity& b); 		// Axis Realigned Bounding Box
+	bool SAT(entity& a, entity& b);  		// Separating Axis Theorem
 
 	// Collision resolution
 	float t_m(entity& a, entity& b);			 // Total mass
