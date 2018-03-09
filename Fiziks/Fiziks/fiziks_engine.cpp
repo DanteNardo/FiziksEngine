@@ -12,8 +12,13 @@ fiziks_engine::fiziks_engine(sf::RenderWindow* window)
 	m_delta_timer = new sf::Clock();
 
 	// TODO: No longer hardcode this
-	circle* c = new circle(this, ExplicitEuler, 20);
-	rectangle* r = new rectangle(this, ExplicitEuler, v2f(40, 40));
+	rectangle* r1 = new rectangle(this, ExplicitEuler, v2f(40, 40));
+	safe_delete(r1->rb());
+	r1->rb(new rigidbody(v2f(250, 300), v2f(0, -50), v2f(0, GRAVITY), 45, 40, 40, Rock));
+
+	rectangle* r2 = new rectangle(this, ExplicitEuler, v2f(40, 40));
+	safe_delete(r2->rb());
+	r2->rb(new rigidbody(v2f(250, 200), v2f(0, 50), v2f(0, GRAVITY), 45, 40, 40, Rock));
 	//triangle* t = new triangle(this, ExplicitEuler, 20, 20);
 
 	std::vector<entity*> es = std::vector<entity*>();

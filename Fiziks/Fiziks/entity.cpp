@@ -35,6 +35,12 @@ rigidbody* entity::rb()
 	return m_rb;
 }
 
+void entity::rb(rigidbody* r)
+{
+	m_rb = r;
+	m_kinematics->rb(r);
+}
+
 e_type entity::type()
 {
 	return m_type;

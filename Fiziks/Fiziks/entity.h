@@ -32,6 +32,7 @@ public:
 	sf::ConvexShape* shape();
 	sf::FloatRect bounds();
 	rigidbody* rb();
+	void rb(rigidbody* r);
 	e_type type();
 
 protected:

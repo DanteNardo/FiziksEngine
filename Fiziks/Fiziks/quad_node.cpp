@@ -213,7 +213,7 @@ bool quad_node::not_leaf()
 void quad_node::draw_tree(sf::RenderWindow* window)
 {
     sf::RectangleShape r = sf::RectangleShape(v2f(m_rect->width, m_rect->height));
-	v2f pos = v2f(m_rect->left, m_rect->top);// world_to_screen(v2f(m_rect->left, m_rect->top));
+	v2f pos = v2f(m_rect->left, m_rect->top);
     r.setPosition(pos.x, pos.y);
 	if (m_entities->size() > 0) {
 		r.setOutlineColor(sf::Color::White);

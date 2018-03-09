@@ -5,10 +5,10 @@ entity(fiziks)
 {
 	m_type = Rect;
 	m_shape = make_rect(size);
-	m_shape->setPosition(v2f(200, 200));
+	m_shape->setPosition(v2f(250, 300));
 	m_shape->setFillColor(sf::Color::Green);
-	m_shape->setOrigin(v2f(size.x/2, size.y/2));
-	m_rb = new rigidbody(v2f(250, 300), v2f(0, -50), v2f(0, GRAVITY), 45, size.x, size.y, Rock);
+	m_shape->setOrigin(size.x / 2, size.y / 2);
+	m_rb = new rigidbody();
 	m_kinematics = new kinematics(i, m_rb);
 }
 
@@ -23,12 +23,20 @@ void rectangle::update()
 {
 	m_kinematics->update(get_engine()->get_delta_time(), 
 						 get_engine()->get_time());
-	m_shape->setPosition(world_to_screen(m_rb->p()));
+	m_shape->setPosition(m_rb->p());
 }
 
 void rectangle::draw(sf::RenderWindow * window)
 {
 	window->draw(*m_shape);
+
+	// DEBUGGING: ARBB
+	sf::RectangleShape r = sf::RectangleShape(v2f(m_shape->getGlobalBounds().width, m_shape->getGlobalBounds().height));
+	r.setPosition(v2f(m_shape->getGlobalBounds().left, m_shape->getGlobalBounds().top));
+	r.setFillColor(sf::Color::Transparent);
+	r.setOutlineColor(sf::Color::Blue);
+	r.setOutlineThickness(1);
+	window->draw(r);
 }
 
 sf::ConvexShape* rectangle::make_rect(v2f size)

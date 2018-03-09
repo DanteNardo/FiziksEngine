@@ -5,10 +5,9 @@ entity(fiziks)
 {
 	m_type = Circ;
 	m_shape = make_circ(radius);
-	m_shape->setPosition(v2f(200, 200));
+	m_shape->setPosition(v2f(250, 0));
 	m_shape->setFillColor(sf::Color::Green);
-	m_shape->setOrigin(v2f(radius, radius));
-	m_rb = new rigidbody(v2f(0, 0), v2f(200, 200), v2f(0, GRAVITY), 45, radius, Rock);
+	m_rb = new rigidbody();
 	m_kinematics = new kinematics(i, m_rb);
 }
 
@@ -23,12 +22,20 @@ void circle::update()
 {
 	m_kinematics->update(get_engine()->get_delta_time(), 
 						 get_engine()->get_time());
-	m_shape->setPosition(world_to_screen(m_rb->p()));
+	m_shape->setPosition(m_rb->p());
 }
 
 void circle::draw(sf::RenderWindow * window)
 {
 	window->draw(*m_shape);
+
+	// DEBUGGING: ARBB
+	sf::RectangleShape r = sf::RectangleShape(v2f(m_shape->getGlobalBounds().width, m_shape->getGlobalBounds().height));
+	r.setPosition(v2f(m_shape->getGlobalBounds().left, m_shape->getGlobalBounds().top));
+	r.setFillColor(sf::Color::Transparent);
+	r.setOutlineColor(sf::Color::Blue);
+	r.setOutlineThickness(1);
+	window->draw(r);
 }
 
 sf::ConvexShape* circle::make_circ(float radius)

@@ -23,7 +23,7 @@ collisions* collisions::get_instance()
 
 bool collisions::check(entity& a, entity& b)
 {
-	// Check shape's axis realigned bounding box (least precise)
+	// Check shape's axis realigned bounding box (least precise, but cheap)
     if (ARBB(a, b)) {
 
 		// Call complicated SAT check (most precise and intensive)
@@ -51,36 +51,27 @@ bool collisions::check(entity& a, entity& b)
 /*
 Generates all of the normals for an entity's shape.
 */
-std::vector<v2f> collisions::gen_norms(entity& e)
+std::vector<v2f> collisions::gen_norms(const v2fs& points)
 {
 	// Define variables
 	std::vector<v2f> normals;
-	sf::Transform t = sf::Transform();
-	t.rotate(e.shape()->getRotation());
 
 	// Iterate through all of the convex shape's points
-	for (int i = 0; i < e.shape()->getPointCount(); i++) {
+	for (int i = 0; i < points.size(); i++) {
 
 		// Find next index
-		int next = i + 1 < e.shape()->getPointCount() ? i + 1 : 0;
+		int next = i + 1 < points.size() ? i + 1 : 0;
 
 		// Two vertices form an edge
-		v2f u = v2f(e.shape()->getPoint(i));
-		v2f v = v2f(e.shape()->getPoint(next));
+		v2f u = v2f(points[i]);
+		v2f v = v2f(points[next]);
 		v2f edge = v - u;
 
 		// Create normal
-		v2f n = v2f(edge.y, -edge.x);
+		v2f n = v2f(-edge.y, edge.x);
 
 		// Push final result to array
-		v2f n1 = normalize(n);
-		normals.push_back(normalize(e.shape()->getTransform().transformPoint(normalize(n))));
-
-		// DEBUGGING
-		const float* m = t.getMatrix();
-		for (int j = 0; j < 16; j++) {
-			float test1 = m[j];
-		}
+		normals.push_back(normalize((n)));
 	}
 
 	return normals;
@@ -112,7 +103,8 @@ v2f collisions::projection(v2fs& points, v2f axis)
 Axis Realigned Bounding Box
 This is an Axis Aligned Bounding Box for a rotated object. This means that the
 AABB is much larger than normal to accommodate every point after the rotation.
-This is a simple and fast collision checking method, but imprecise.
+This is a simple and fast collision checking method, but imprecise. Returns
+true if the boxes are intersecting.
 */
 bool collisions::ARBB(entity& a, entity& b)
 {
@@ -124,7 +116,8 @@ Separating Axis Theorem
 An algorithm that asserts two objects are not colliding if a plane can be drawn
 between them. It works by comparing the minimum and maximum projections from
 each entity and if an entity's minimum projection is greater than another's
-maximum projection then a plane cannot be created between them.
+maximum projection then a plane cannot be created between them. Returns true if
+we cannot find a separating axis.
 */
 bool collisions::SAT(entity& a, entity& b)
 {
@@ -133,14 +126,14 @@ bool collisions::SAT(entity& a, entity& b)
 	v2fs b_points = v2fs();
 
 	for (int i = 0; i < a.shape()->getPointCount(); i++) {
-		a_points.push_back(a.shape()->getPoint(i));
+		a_points.push_back(a.global_vertex(i));
 	}
 	for (int j = 0; j < b.shape()->getPointCount(); j++) {
-		b_points.push_back(b.shape()->getPoint(j));
+		b_points.push_back(b.global_vertex(j));
 	}
 
-	v2fs a_normals = gen_norms(a);
-	v2fs b_normals = gen_norms(b);
+	v2fs a_normals = gen_norms(a_points);
+	v2fs b_normals = gen_norms(b_points);
 	#pragma endregion
 
 	#pragma region SAT - A Normals
@@ -151,7 +144,7 @@ bool collisions::SAT(entity& a, entity& b)
 		
 		// Check for separation
 		if (a_proj.y < b_proj.x || a_proj.x > b_proj.y) {
-			return true;
+			return false;
 		}
 	}
 	#pragma endregion
@@ -164,13 +157,13 @@ bool collisions::SAT(entity& a, entity& b)
 
 		// Check for separation
 		if (a_proj.y < b_proj.x || a_proj.x > b_proj.y) {
-			return true;
+			return false;
 		}
 	}
 	#pragma endregion
 
 	// DEFAULT RETURN
-	return false;
+	return true;
 }
 
 manifold collisions::gen_manifold(entity& a, entity& b)

@@ -1,5 +1,5 @@
 // Dante Nardo
-// Last Modified: 3/1/2018
+// Last Modified: 3/8/2018
 // Purpose: Performs the calculations for all Kinematics equations.
 
 #ifndef KINEMATICS_H
@@ -24,7 +24,8 @@ public:
 	~kinematics();
 
 	void update(const float dt, const float tt);
-	rigidbody* get_rigidbody();
+	rigidbody* rb();
+	void rb(rigidbody* r);
 
 private:
 	integration m_integration;

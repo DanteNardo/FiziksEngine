@@ -43,9 +43,14 @@ void kinematics::update(const float dt, const float tt)
 	}
 }
 
-rigidbody* kinematics::get_rigidbody()
+rigidbody* kinematics::rb()
 {
 	return m_rb;
+}
+
+void kinematics::rb(rigidbody* r)
+{
+	m_rb = r;
 }
 
 /*
