@@ -32,6 +32,14 @@ void triangle::update()
 void triangle::draw(sf::RenderWindow * window)
 {
 	window->draw(*m_shape);
+
+	// DEBUGGING: ARBB
+	sf::RectangleShape r = sf::RectangleShape(v2f(m_shape->getGlobalBounds().width, m_shape->getGlobalBounds().height));
+	r.setPosition(v2f(m_shape->getGlobalBounds().left, m_shape->getGlobalBounds().top));
+	r.setFillColor(sf::Color::Transparent);
+	r.setOutlineColor(sf::Color::Blue);
+	r.setOutlineThickness(1);
+	//window->draw(r);
 }
 
 sf::ConvexShape* triangle::create_tri(float w, float h)

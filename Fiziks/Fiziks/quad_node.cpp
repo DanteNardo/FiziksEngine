@@ -53,23 +53,26 @@ void quad_node::add_entities(std::vector<entity*>* entities)
 {
     // Copy observers over to quad tree
     for (auto e : *entities) {
-        add_entity(e);
+		if (contains_entity(e)) {
+			add_entity(e);
+		}
     }
 
     // Move observers to children and remove from parent
     for (int i = 0; i < m_entities->size(); i++) {
         if (add_to_subdivision((*m_entities)[i])) {
-            m_entities->erase(m_entities->begin()+i);
+			m_entities->erase(m_entities->begin()+i);
             i--;
         }
     }
 
     // Add observers from children to grandchildren
-    if (m_depth + 1 <= m_final_depth) {
-        for (auto q : *m_subdivisions) {
-            q->add_entities(m_entities);
-        }
-    }
+	if (m_entities->size() > 0 &&
+		m_depth + 1 <= m_final_depth) {
+		for (auto q : *m_subdivisions) {
+			q->add_entities(m_entities);
+		}
+	}
 }
 
 void quad_node::add_entity(entity* e)
@@ -126,12 +129,29 @@ added. Returns true if added to a subdivision, else false.
 bool quad_node::add_to_subdivision(entity* entity_to_add)
 {
     for (auto q : *m_subdivisions) {
-        if (q->get_rect()->intersects(entity_to_add->bounds())) {
-            q->add_entity(entity_to_add);
-            return true;
-        }
+		if (q->contains_entity(entity_to_add)) {
+			q->add_entity(entity_to_add);
+			return true;
+		}
     }
 
+	return false;
+}
+
+/*
+Returns true if a quad_node contains the entity.
+*/
+bool quad_node::contains_entity(entity * e)
+{
+	sf::FloatRect b = e->bounds();
+	if (m_rect->contains(v2f(b.left, b.top)) &&
+		m_rect->contains(v2f(b.left + b.width, b.top)) &&
+		m_rect->contains(v2f(b.left, b.top + b.height)) &&
+		m_rect->contains(v2f(b.left + b.width, b.top + b.height))) {
+		return true;
+	}
+
+	// DEFAULT return
 	return false;
 }
 

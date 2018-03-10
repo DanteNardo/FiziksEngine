@@ -6,7 +6,10 @@
 
 int main()
 {
-	sf::RenderWindow window(sf::VideoMode(1024, 768), "SFML works!");
+	sf::RenderWindow window(sf::VideoMode(1024, 768), "SFML works!"); 
+	sf::View view = window.getDefaultView();
+	view.setSize(1024, -768);
+	window.setView(view);
 
 	// Initialize the engine
 	fiziks_engine* fiziks = new fiziks_engine(&window);

@@ -54,9 +54,13 @@ bool collisions::check(entity& a, entity& b)
 			return true;
 
 		case SAT_NONE:
+			a.shape()->setFillColor(sf::Color::Green);
+			b.shape()->setFillColor(sf::Color::Green);
 			return false;
 		}
     }
+	a.shape()->setFillColor(sf::Color::Green);
+	b.shape()->setFillColor(sf::Color::Green);
     return false;
 }
 

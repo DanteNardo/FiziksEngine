@@ -36,7 +36,8 @@ private:
 
 	void partition();
 	void create_subdivisions();
-	bool add_to_subdivision(entity* observer_to_add);
+	bool add_to_subdivision(entity* entity_to_add);
+	bool contains_entity(entity* e);
 	bool not_leaf();
 };
 
