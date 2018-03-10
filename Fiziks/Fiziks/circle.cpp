@@ -5,7 +5,7 @@ entity(fiziks)
 {
 	m_type = Circ;
 	m_shape = make_circ(radius);
-	m_shape->setPosition(v2f(250, 0));
+	m_shape->setPosition(v2f(0, 0));
 	m_shape->setFillColor(sf::Color::Green);
 	m_rb = new rigidbody();
 	m_kinematics = new kinematics(i, m_rb);
@@ -20,6 +20,9 @@ circle::~circle()
 
 void circle::update()
 {
+	// TODO: Remove when not debugging
+	m_shape->setFillColor(sf::Color::Green);
+
 	m_kinematics->update(get_engine()->get_delta_time(), 
 						 get_engine()->get_time());
 	m_shape->setPosition(m_rb->p());
@@ -35,7 +38,7 @@ void circle::draw(sf::RenderWindow * window)
 	r.setFillColor(sf::Color::Transparent);
 	r.setOutlineColor(sf::Color::Blue);
 	r.setOutlineThickness(1);
-	window->draw(r);
+	//window->draw(r);
 }
 
 sf::ConvexShape* circle::make_circ(float radius)

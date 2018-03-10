@@ -1,5 +1,5 @@
 // Author: Dante Nardo
-// Last Modified: 3/7/2018
+// Last Modified: 3/10/2018
 // Purpose: A circular fiziks entity.
 
 #ifndef CIRCLE_H

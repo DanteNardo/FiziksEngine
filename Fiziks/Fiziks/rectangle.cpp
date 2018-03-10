@@ -7,7 +7,7 @@ entity(fiziks)
 	m_shape = make_rect(size);
 	m_shape->setPosition(v2f(250, 300));
 	m_shape->setFillColor(sf::Color::Green);
-	m_shape->setOrigin(size.x / 2, size.y / 2);
+	//m_shape->setOrigin(size.x / 2, size.y / 2);
 	m_rb = new rigidbody();
 	m_kinematics = new kinematics(i, m_rb);
 }
@@ -26,7 +26,7 @@ void rectangle::update()
 	m_shape->setPosition(m_rb->p());
 }
 
-void rectangle::draw(sf::RenderWindow * window)
+void rectangle::draw(sf::RenderWindow* window)
 {
 	window->draw(*m_shape);
 
@@ -36,7 +36,7 @@ void rectangle::draw(sf::RenderWindow * window)
 	r.setFillColor(sf::Color::Transparent);
 	r.setOutlineColor(sf::Color::Blue);
 	r.setOutlineThickness(1);
-	window->draw(r);
+	//window->draw(r);
 }
 
 sf::ConvexShape* rectangle::make_rect(v2f size)

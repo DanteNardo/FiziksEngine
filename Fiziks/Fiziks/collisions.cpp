@@ -26,25 +26,37 @@ bool collisions::check(entity& a, entity& b)
 	// Check shape's axis realigned bounding box (least precise, but cheap)
     if (ARBB(a, b)) {
 
-		// Call complicated SAT check (most precise and intensive)
-		if (SAT(a, b)) {
+		// Set up SAT normals
+		v2f a_normal, b_normal;
+		manifold m;
 
-			// TODO: Remove when not debugging
-			a.shape()->setFillColor(sf::Color::Red);
-			b.shape()->setFillColor(sf::Color::Red);
+		// Call complicated SAT check (most precise and intensive)
+		switch (SAT(a, b, a_normal, b_normal)) {
+
+		case SAT_A:
 
 			// Generate collision data (manifold) and resolve collision
-			manifold m = gen_manifold(a, b);
+			m = gen_manifold(a, b, a_normal);
 			resolve(m);
-			//fix_pen(m);
+			fix_pen(m);
+			a.shape()->setFillColor(sf::Color::Red);
+			b.shape()->setFillColor(sf::Color::Red);
 			return true;
+
+		case SAT_B:
+
+			// Generate collision data (manifold) and resolve collision
+			m = gen_manifold(a, b, b_normal);
+			resolve(m);
+			fix_pen(m);
+			a.shape()->setFillColor(sf::Color::Red);
+			b.shape()->setFillColor(sf::Color::Red);
+			return true;
+
+		case SAT_NONE:
+			return false;
 		}
     }
-
-	// TODO: Remove when not debugging
-	a.shape()->setFillColor(sf::Color::Green);
-	b.shape()->setFillColor(sf::Color::Green);
-
     return false;
 }
 
@@ -119,7 +131,7 @@ each entity and if an entity's minimum projection is greater than another's
 maximum projection then a plane cannot be created between them. Returns true if
 we cannot find a separating axis.
 */
-bool collisions::SAT(entity& a, entity& b)
+bool collisions::SAT(entity& a, entity& b, v2f& an, v2f& bn)
 {
     #pragma region Setup Points and Normals
 	v2fs a_points = v2fs();
@@ -144,7 +156,8 @@ bool collisions::SAT(entity& a, entity& b)
 		
 		// Check for separation
 		if (a_proj.y < b_proj.x || a_proj.x > b_proj.y) {
-			return false;
+			an = a_normals[i];
+			return SAT_A;
 		}
 	}
 	#pragma endregion
@@ -157,19 +170,23 @@ bool collisions::SAT(entity& a, entity& b)
 
 		// Check for separation
 		if (a_proj.y < b_proj.x || a_proj.x > b_proj.y) {
-			return false;
+			bn = b_normals[i];
+			return SAT_B;
 		}
 	}
 	#pragma endregion
 
 	// DEFAULT RETURN
-	return true;
+	return SAT_NONE;
 }
 
-manifold collisions::gen_manifold(entity& a, entity& b)
+/*
+Generates a struct that contains all of the necessary collision data.
+*/
+manifold collisions::gen_manifold(entity& a, entity& b, v2f n)
 {
-	v2f n = norm(a, b);
-	return manifold(&a, &b, pen(n), normalize(n));
+	v2f nor = norm(a, b);
+	return manifold(&a, &b, pen(nor), normalize(nor));
 }
 
 /*
@@ -200,7 +217,7 @@ Finds the collision normal.
 */
 v2f collisions::norm(entity& a, entity& b)
 {
-	return a.center() - closest(a, b);
+	return b.center() - a.center();// closest(a, b);
 }
 
 /*
@@ -221,6 +238,7 @@ float collisions::pen(v2f norm)
 
 void collisions::resolve(const manifold& m)
 {
+	#pragma region Impulse
 	// Save pointers for cleaner code
 	entity* a = m.m_a;
 	entity* b = m.m_b;
@@ -243,7 +261,9 @@ void collisions::resolve(const manifold& m)
 	v2f impulse = j * m.m_norm;
 	a->rb()->v(-1.0f, a->rb()->im() * impulse);
 	b->rb()->v(1.0f, b->rb()->im() * impulse);
+	#pragma endregion
 
+	#pragma region Friction
 	// Recalculate relative velocity post impulse
 	rel_v = b->rb()->v() - a->rb()->v();
 
@@ -276,6 +296,7 @@ void collisions::resolve(const manifold& m)
 	// Apply friction impulse
 	//a->rb()->v(-1.0f, a->rb()->im() * f_impulse);
 	//b->rb()->v(1.0f, b->rb()->im() * f_impulse);
+	#pragma endregion
 }
 
 void collisions::fix_pen(const manifold& m)
@@ -290,7 +311,7 @@ void collisions::fix_pen(const manifold& m)
 	const float s = 0.01;
 
 	// Calculate correction amount, move a away and b away in opposite direction
-	v2f c = std::max(m.m_pen - s, 0.0f) / t_m(*m.m_a, *m.m_b)* p * m.m_norm;
+	v2f c = std::max(m.m_pen - s, 0.0f) * t_m(*m.m_a, *m.m_b)* p * m.m_norm;
 	m.m_a->rb()->p(-1, m.m_a->rb()->im() * c);
 	m.m_b->rb()->p(1, m.m_b->rb()->im() * c);
 }

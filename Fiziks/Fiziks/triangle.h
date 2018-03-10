@@ -1,5 +1,5 @@
 // Author: Dante Nardo
-// Last Modified: 3/6/2018
+// Last Modified: 3/10/2018
 // Purpose: A triangular fiziks entity.
 
 #ifndef TRIANGLE_H
@@ -17,8 +17,6 @@ public:
 	void draw(sf::RenderWindow* window);
 
 private:
-	sf::ConvexShape* m_shape;
-
 	sf::ConvexShape* create_tri(float w, float h);
 };
 

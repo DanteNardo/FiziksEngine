@@ -1,5 +1,5 @@
 // Author: Dante Nardo
-// Last Modified: 3/6/2018
+// Last Modified: 3/10/2018
 // Purpose: Implements spatial partitioning of a 2D screen.
 
 #ifndef QUAD_NODE_H

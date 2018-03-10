@@ -149,6 +149,9 @@ void quad_node::check_collisions(std::vector<entity*> A, std::vector<entity*> B)
     }
 }
 
+/*
+Intelligently checks through subdivisions for collisions within those subs.
+*/
 void quad_node::check_subdivision_collisions()
 {
     // There are observers in this node so we have to check their collisions
@@ -205,11 +208,17 @@ std::vector<entity*>* quad_node::get_lower(std::vector<entity*>* previous)
     return previous;
 }
 
+/*
+Determines whether or not a node is a leaf.
+*/
 bool quad_node::not_leaf()
 {
     return m_depth != m_final_depth;
 }
 
+/*
+Draws the quad tree for debugging.
+*/
 void quad_node::draw_tree(sf::RenderWindow* window)
 {
     sf::RectangleShape r = sf::RectangleShape(v2f(m_rect->width, m_rect->height));
