@@ -42,21 +42,21 @@ fiziks_engine::fiziks_engine(sf::RenderWindow* window)
 	r3->rb(new rigidbody(v2f(400, 600), v2f(-50, -125), v2f(0, 0), 45, 40, 40, Rock));
 	
 
-	//triangle* t1 = new triangle(this, ExplicitEuler, 40, 40);
-	//safe_delete(t1->rb());
-	//t1->rb(new rigidbody(v2f(450, 500), v2f(-25, -50), v2f(0, 0), 45, 40, 40, Rock));
+	triangle* t1 = new triangle(this, ExplicitEuler, 40, 40);
+	safe_delete(t1->rb());
+	t1->rb(new rigidbody(v2f(450, 500), v2f(-25, -50), v2f(0, 0), 45, 40, 40, Rock));
 
-	//triangle* t2 = new triangle(this, ExplicitEuler, 40, 40);
-	//safe_delete(t2->rb());
-	//t2->rb(new rigidbody(v2f(300, 250), v2f(25, 25), v2f(0, 0), 45, 40, 40, Rock));
+	triangle* t2 = new triangle(this, ExplicitEuler, 40, 40);
+	safe_delete(t2->rb());
+	t2->rb(new rigidbody(v2f(300, 250), v2f(25, 25), v2f(0, 0), 45, 40, 40, Rock));
 
-	//triangle* t3 = new triangle(this, ExplicitEuler, 40, 40);
-	//safe_delete(t3->rb());
-	//t3->rb(new rigidbody(v2f(750, 750), v2f(-25, -25), v2f(0, 0), 45, 40, 40, Rock));
+	triangle* t3 = new triangle(this, ExplicitEuler, 40, 40);
+	safe_delete(t3->rb());
+	t3->rb(new rigidbody(v2f(750, 750), v2f(-25, -25), v2f(0, 0), 45, 40, 40, Rock));
 
-	//triangle* t4 = new triangle(this, ExplicitEuler, 40, 40);
-	//safe_delete(t4->rb());
-	//t4->rb(new rigidbody(v2f(600, 650), v2f(25, 25), v2f(0, 0), 45, 40, 40, Rock));
+	triangle* t4 = new triangle(this, ExplicitEuler, 40, 40);
+	safe_delete(t4->rb());
+	t4->rb(new rigidbody(v2f(600, 650), v2f(25, 25), v2f(0, 0), 45, 40, 40, Rock));
 
 	// TODO: FIX THIS STATIC CAST
 	std::vector<entity*> es = std::vector<entity*>();

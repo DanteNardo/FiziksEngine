@@ -7,6 +7,7 @@ entity(fiziks)
 	m_shape = make_circ(radius);
 	m_shape->setPosition(v2f(0, 0));
 	m_shape->setFillColor(sf::Color::Green);
+	//m_shape->setOrigin(radius, radius);
 	m_rb = new rigidbody();
 	m_kinematics = new kinematics(i, m_rb);
 }
@@ -26,7 +27,7 @@ void circle::update()
 	m_kinematics->update(get_engine()->get_delta_time(), 
 						 get_engine()->get_time());
 	m_shape->setPosition(m_rb->p());
-	//m_shape->setRotation(rad(m_rb->o()));
+	m_shape->setRotation(rad(m_rb->o()));
 }
 
 void circle::draw(sf::RenderWindow * window)

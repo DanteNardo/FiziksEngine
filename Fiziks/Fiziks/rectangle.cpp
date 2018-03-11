@@ -7,7 +7,7 @@ entity(fiziks)
 	m_shape = make_rect(size);
 	m_shape->setPosition(v2f(250, 300));
 	m_shape->setFillColor(sf::Color::Green);
-	//m_shape->setOrigin(size.x / 2, size.y / 2);
+	m_shape->setOrigin(size.x / 2, size.y / 2);
 	m_rb = new rigidbody();
 	m_kinematics = new kinematics(i, m_rb);
 }
@@ -24,7 +24,7 @@ void rectangle::update()
 	m_kinematics->update(get_engine()->get_delta_time(), 
 						 get_engine()->get_time());
 	m_shape->setPosition(m_rb->p());
-	//m_shape->setRotation(rad(m_rb->o()));
+	m_shape->setRotation(rad(m_rb->o()));
 }
 
 void rectangle::draw(sf::RenderWindow* window)

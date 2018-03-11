@@ -27,7 +27,7 @@ void triangle::update()
 	m_kinematics->update(get_engine()->get_delta_time(), 
 						 get_engine()->get_time());
 	m_shape->setPosition(world_to_screen(m_rb->p()));
-	//m_shape->setRotation(rad(m_rb->o()));
+	m_shape->setRotation(rad(m_rb->o()));
 }
 
 void triangle::draw(sf::RenderWindow * window)
