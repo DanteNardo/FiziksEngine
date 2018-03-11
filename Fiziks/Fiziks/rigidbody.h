@@ -1,5 +1,5 @@
 // Author: Dante Nardo
-// Last Modified: 3/6/2018
+// Last Modified: 3/10/2018
 // Purpose: Performs collision checking operations based on collider types.
 
 #ifndef RIGIDBODY_H
@@ -93,9 +93,9 @@ class rigidbody
 public:
 	rigidbody();
 	rigidbody(v2f po, v2f ve, v2f ac, 
-              int th, float wi, float he, materials m);
+              int o, float wi, float he, materials m);
 	rigidbody(v2f po, v2f ve, v2f ac, 
-              int th, float ra, materials m);
+              int o, float ra, materials m);
 	~rigidbody();
 
     #pragma region Getters and Setters
@@ -106,7 +106,8 @@ public:
     v2f& v();
     v2f& a();
     v2f& f();
-    int t();
+	float w();
+    int o();
     float im();
     float iin();
     float rest();
@@ -118,7 +119,8 @@ public:
     void p(v2f const& p);
     void v(v2f const& v);
     void a(v2f const& a);
-    void t(int const& t);
+	void w(float const& w);
+    void o(int const& o);
     void im(float const& m);
     void iin(float const& in);
     void rest(float const& rest);
@@ -128,20 +130,25 @@ public:
     void p(float mod, v2f const& p);
     void v(float mod, v2f const& v);
     void a(float mod, v2f const& a);
-    void t(float mod, int const& t);
+	void w(float mod, float const& w);
+    void o(float mod, int const& o);
     void im(float mod, float const& im);
     void iin(float mod, float const& iin);
     void rest(float mod, float const& rest);
     #pragma endregion
+
+	void apply_impulse(const v2f& impulse, const v2f& contact);
     
 private:
     v2f m_ip;	        // Initial position
 	v2f m_iv;	        // Initial velocity
 	v2f m_p;	        // Position
-	v2f m_v;	        // Velocity
+	v2f m_v;	        // Linear Velocity
 	v2f m_a;	        // Acceleration
     v2f m_f;            // Net force
-	int m_t;	        // Theta
+	float m_w;			// Angular Velocity
+	v2f m_t;			// Net torque
+	int m_o;	        // Theta - orientation
     mass_data* m_mass;  // Mass data: contains mass, inertia, and inverses
     material* m_mat;    // Material: contains density and restitution
 };

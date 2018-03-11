@@ -242,10 +242,11 @@ float collisions::pen(v2f norm)
 
 void collisions::resolve(const manifold& m)
 {
-	#pragma region Impulse
 	// Save pointers for cleaner code
 	entity* a = m.m_a;
 	entity* b = m.m_b;
+
+	#pragma region Impulse
 
 	// Compute the normalized relative velocity of both objects
 	v2f rel_v = b->rb()->v() - a->rb()->v();
@@ -259,12 +260,12 @@ void collisions::resolve(const manifold& m)
 
 	// Calculate impulse magnitude
 	float j = -(1 + e) * n_vel;
-	j /= t_m(*a, *b);
+	j /= t_m(*a, *b);// +pow(cross(ra, n_vel), 2) * a->rb()->iin() + pow(cross(rb, n_vel), 2) * a->rb()->iin();
 
 	// Apply impulse
 	v2f impulse = j * m.m_norm;
-	a->rb()->v(-1.0f, a->rb()->im() * impulse);
-	b->rb()->v(1.0f, b->rb()->im() * impulse);
+	a->rb()->apply_impulse(-1.0f * impulse, m.m_norm);
+	b->rb()->apply_impulse(impulse, m.m_norm);
 	#pragma endregion
 
 	#pragma region Friction
@@ -300,6 +301,15 @@ void collisions::resolve(const manifold& m)
 	// Apply friction impulse
 	//a->rb()->v(-1.0f, a->rb()->im() * f_impulse);
 	//b->rb()->v(1.0f, b->rb()->im() * f_impulse);
+	#pragma endregion
+
+	#pragma region Angular Velocity and Rotation
+	v2f ra = closest(*b, *a) - a->center();
+	v2f rb = closest(*a, *b) - b->center();
+
+	// angular velocity (w) = r x velocity
+	a->rb()->w(cross(ra, a->rb()->v()));
+	b->rb()->w(cross(rb, b->rb()->v()));
 	#pragma endregion
 }
 

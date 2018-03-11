@@ -1,5 +1,5 @@
 // Dante Nardo
-// Last Modified: 3/8/2018
+// Last Modified: 3/10/2018
 // Purpose: Performs the calculations for all Kinematics equations.
 
 #ifndef KINEMATICS_H

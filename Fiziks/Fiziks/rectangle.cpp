@@ -24,6 +24,7 @@ void rectangle::update()
 	m_kinematics->update(get_engine()->get_delta_time(), 
 						 get_engine()->get_time());
 	m_shape->setPosition(m_rb->p());
+	//m_shape->setRotation(rad(m_rb->o()));
 }
 
 void rectangle::draw(sf::RenderWindow* window)

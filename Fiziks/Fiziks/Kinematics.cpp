@@ -12,8 +12,8 @@ kinematics::kinematics(integration integration, rigidbody* rb)
 	m_rb = rb;
 
 	// Apply angle to initial velocity
-	m_rb->v().x *= (float)(cos(rad(m_rb->t())));
-	m_rb->v().y *= (float)(sin(rad(m_rb->t())));
+	m_rb->v().x *= (float)(cos(rad(m_rb->o())));
+	m_rb->v().y *= (float)(sin(rad(m_rb->o())));
 }
 
 kinematics::~kinematics()
@@ -62,8 +62,9 @@ energy over time and a small time-step is necessary for accuracy.
 void kinematics::explicit_euler_integration(const float dt)
 {
 	// Update position, then velocity
-	m_rb->p(m_rb->p() + m_rb->v() * dt);
-	m_rb->v(m_rb->v() + m_rb->a() * dt);
+	m_rb->p(1, m_rb->v() * dt);
+	m_rb->v(1, m_rb->a() * dt);
+	m_rb->o(1, m_rb->w() * dt);
 }
 
 /*
@@ -81,8 +82,9 @@ generates a better result.
 void kinematics::semi_implicit_euler_integration(const float dt)
 {
 	// Update velocity, then position
-	m_rb->v(m_rb->v() + m_rb->a() * dt);
-	m_rb->p(m_rb->p() + m_rb->v() * dt);
+	m_rb->v(1, m_rb->a() * dt);
+	m_rb->p(1, m_rb->v() * dt);
+	m_rb->o(1, m_rb->w() * dt);
 }
 
 /*
@@ -116,10 +118,10 @@ and it can be more expensive in processing power.
 void kinematics::projectile_motion(const float tt)
 {
 	// x(t) = initial v times cos(theta)
-	m_rb->p().x = m_rb->iv().x * cos(rad(m_rb->t())) * tt;
+	m_rb->p().x = m_rb->iv().x * cos(rad(m_rb->o())) * tt;
 
 	// y(t) = 	(initial v times sin(theta) times t) plus 
 	// 			(one half of GRAVITY times (time squared))
-	m_rb->p().y = (m_rb->iv().y * sin(rad(m_rb->t())) * tt) + 
+	m_rb->p().y = (m_rb->iv().y * sin(rad(m_rb->o())) * tt) + 
 				  (0.5f * GRAVITY * (pow(tt, 2)));
 }

@@ -1,12 +1,4 @@
-﻿  quad_node.cpp
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\math.h(50): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(37): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(41): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(45): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(49): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(81): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\quad_node.cpp(62): warning C4018: '<': signed/unsigned mismatch
-  fiziks_engine.cpp
+﻿  fiziks_engine.cpp
 c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\math.h(50): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
 c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(37): warning C4305: '=': truncation from 'double' to 'float'
 c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(41): warning C4305: '=': truncation from 'double' to 'float'
@@ -14,13 +6,5 @@ c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(45): warning 
 c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(49): warning C4305: '=': truncation from 'double' to 'float'
 c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\rigidbody.h(81): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 c:\users\dante\source\repos\fiziksengine\fiziks\fiziks\fiziks_engine.cpp(71): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  triangle.cpp
-  rectangle.cpp
-  fiziks_app.cpp
-  entity.cpp
-  collisions.cpp
-  circle.cpp
   Fiziks.vcxproj -> C:\Users\dante\Source\Repos\FiziksEngine\Fiziks\Debug\Fiziks.exe
   Fiziks.vcxproj -> C:\Users\dante\Source\Repos\FiziksEngine\Fiziks\Debug\Fiziks.pdb (Full PDB)

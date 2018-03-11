@@ -78,6 +78,21 @@ inline float dot(const v3f& v1, const v3f& v2)
 	return (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
 }
 
+inline float cross(const v2f& a, const v2f& b)
+{
+	return a.x * b.y - a.y * b.x;
+}
+
+inline v2f cross(const v2f& a, float s)
+{
+	return v2f(s * a.y, -s * a.x);
+}
+
+inline v2f cross(float s, const v2f& a)
+{
+	return v2f(-s * a.y, s * a.x);
+}
+
 inline float pythag(float a, float b)
 {
 	// Pythagorean theorem: A^2 + B^2 = C^2
